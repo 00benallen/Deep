@@ -13,6 +13,8 @@ import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
 
+import res.ShopDrawer;
+
 public class Render implements Runnable {
 	//graphics resources
 	private Graphics2D g;
@@ -26,9 +28,9 @@ public class Render implements Runnable {
 	 * Constructs the render object
 	 * @param graphics
 	 */
-	public Render(Graphics graphics) {
+	public Render(Graphics g) {
 		Main.log.log(Level.INFO, "Constructing render");
-		this.g = (Graphics2D) graphics;
+		this.g = (Graphics2D) g;
 	}
 
 	/**
@@ -70,13 +72,18 @@ public class Render implements Runnable {
 	/**
 	 * Main command that calls functions to draw different aspects of the game
 	 */
-	private void draw() { 
+	public void draw() { 
 		BufferedImage screen = new BufferedImage(GraphicsMain.WIDTH, GraphicsMain.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) screen.getGraphics();
 		drawBackground(g);
+		if(Main.appState == Main.GAME_STATE) {
+			if(Main.gameState == Main.GAME_SHOP) {
+				ShopDrawer.draw(g);
+			}
+		}
 		dblBuffer.add(screen);
 		if(dblBuffer.size() == 2) {
-			this.g.drawImage(dblBuffer.poll(), 0, 0, GraphicsMain.WIDTH, GraphicsMain.HEIGHT, null);
+			this.g.drawImage(dblBuffer.poll(), 0, 0, null);
 		}
 	}
 	
@@ -86,8 +93,8 @@ public class Render implements Runnable {
 		g.fill(background);
 	}
 	
-	private void drawShop() {
-		
+	public Graphics2D getGraphics() {
+		return g;
 	}
 	
 	

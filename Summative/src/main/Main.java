@@ -9,8 +9,9 @@ public class Main {
 	
 	//app resources
 	public static final int GAME_STATE = 1, MAIN_MENU_STATE = 2;
+	public static final int GAME_SHOP = 0;
 	public static GraphicsMain gMain;
-	public static int appState = 0;
+	public static int appState = 0, gameState = 0;
 	public static final ReentrantReadWriteLock lck = new ReentrantReadWriteLock();
 	public static boolean isNew = true;
 	public static Logger log;

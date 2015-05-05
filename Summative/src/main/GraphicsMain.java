@@ -26,7 +26,7 @@ public class GraphicsMain {
 	
 	//Thread variables
 	private Thread renderThread;
-	public Render render;
+	public static Render render;
 	
 	/**
 	 * Constructor for graphics main, opens the window
@@ -49,12 +49,14 @@ public class GraphicsMain {
 		appState = Main.appState;
 		window.setContentPane(genGamePane());
 		window.revalidate();
-		render = new Render(window.getGraphics());
+		render = new Render(window.getContentPane().getGraphics());
 		start();
 	}
 	
 	public JPanel genGamePane() {
 		JPanel gamePane = new JPanel();
+		gamePane.setSize(GraphicsMain.WIDTH, GraphicsMain.HEIGHT);
+		gamePane.setLocation(0, 0);
 		return gamePane;
 	}
 	
