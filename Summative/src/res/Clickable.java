@@ -1,7 +1,6 @@
 package res;
 
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -29,17 +28,10 @@ public class Clickable {
 	public int getWidth() {return width;}
 	public int getHeight() {return height;}
 	public String getName() {return name;}
-	
 	public Rectangle2D getBound() {return bound;}
+	public boolean isClicked() {return clicked;}
 	
 	public void draw(Graphics2D g) {
 		g.drawImage(image, x, y, width, height, null);
 	}
-	
-	public void click() {
-		clicked = true;
-	}
-	
-	public boolean isClicked() {return clicked;}
-
 }
