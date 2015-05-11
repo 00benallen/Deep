@@ -19,14 +19,8 @@ public class ShopDrawer {
 		}
 		else {
 			Main.log.log(Level.INFO, "Generating shop GUI");
-			BufferedImage shopGUII = null;
-			try {
-				shopGUII = ImageIO.read(this.getClass().getClassLoader().getResource("shop/shopBackground.png"));
-			} catch (IOException | IllegalArgumentException e) {
-				Main.log.log(Level.SEVERE, "Cannot find shop background");
-				e.printStackTrace();
-			}
-			shopGUI = new ShopGUI(0, 0, shopGUII, "shopGUI");
+			shopGUI = new ShopGUI(0, 0, "shopGUI");
+			Main.gMain.addMouseListener(shopGUI);
 		}
 		
 	}

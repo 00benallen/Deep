@@ -2,6 +2,8 @@ package main;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import res.Dungeon;
+
 /**
  * Update class for Trash Smash, updates at 60 ups, runs game logic
  * @author Ben Pinhorn
@@ -52,6 +54,10 @@ public class Update implements Runnable {
 	 */
 	public synchronized void stop() {
 		running  = false;
+	}
+	
+	public void generateDungeon() {
+		Dungeon newDungeon = new Dungeon();
 	}
 	
 	/**

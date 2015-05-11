@@ -2,6 +2,7 @@ package main;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseListener;
 import java.util.logging.Level;
 
 import javax.swing.JFrame;
@@ -38,6 +39,10 @@ public class GraphicsMain {
 		window.setVisible(true);
 		appState = Main.appState;
 		bl = new ButtonListener();
+	}
+	
+	public void addMouseListener(MouseListener l) {
+		window.addMouseListener(l);
 	}
 	
 	public void startGame() {

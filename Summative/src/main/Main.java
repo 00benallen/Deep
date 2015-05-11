@@ -9,7 +9,7 @@ public class Main {
 	
 	//app resources
 	public static final int GAME_STATE = 1, MAIN_MENU_STATE = 2;
-	public static final int GAME_SHOP = 0;
+	public static final int GAME_SHOP = 0 , GAME_DUNGEON = 1;
 	public static GraphicsMain gMain;
 	public static int appState = 0, gameState = 0;
 	public static final ReentrantReadWriteLock lck = new ReentrantReadWriteLock();
@@ -32,9 +32,17 @@ public class Main {
 	public static void startGame() {
 		log.log(Level.INFO, "Starting game");
 		appState = GAME_STATE;
+		gameState = GAME_SHOP;
 		update = new Update();
 		update.start();
 		gMain.startGame();
+	}
+	
+	public static void startDungeon() {
+		log.log(Level.INFO, "Starting dungeon");
+		appState = GAME_STATE;
+		gameState = GAME_DUNGEON;
+		Main.update.generateDungeon();
 	}
 	
 	/**

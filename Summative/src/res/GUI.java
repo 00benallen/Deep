@@ -7,22 +7,20 @@ import java.util.LinkedList;
 
 public abstract class GUI implements MouseListener{
 	private LinkedList<Pane> panes;
-	private String name, curPane;
-	private BufferedImage background;
+	private Pane curPane;
+	private String name, curPaneName;
 	private int x, y;
 	
-	public GUI(int x, int y, BufferedImage background, String name) {
+	public GUI(int x, int y, String name) {
 		this.x = x;
 		this.y = y;
-		this.background = background;
 		this.name = name;
 		panes = new LinkedList<Pane>();
 	}
 	
-	public GUI(int x, int y, BufferedImage background, LinkedList<Pane> panes, String name) {
+	public GUI(int x, int y, LinkedList<Pane> panes, String name) {
 		this.x = x;
 		this.y = y;
-		this.background = background;
 		this.name = name;
 		this.panes = panes;
 	}
@@ -34,9 +32,8 @@ public abstract class GUI implements MouseListener{
 	public LinkedList<Pane> getPanes() {return panes;}
 	
 	public void draw(Graphics2D g) {
-		g.drawImage(background, x, y, null);
 		for(int i = 0; i < panes.size(); i++) {
-			if(panes.get(i).getName().equals(curPane)) {
+			if(panes.get(i).getName().equals(curPaneName)) {
 				panes.get(i).draw(g);
 				break;
 			}
@@ -52,12 +49,22 @@ public abstract class GUI implements MouseListener{
 		}
 	}
 
-	public String getCurPane() {
+	public String getCurPaneName() {
+		return curPaneName;
+	}
+	
+	public Pane getCurPane() {
 		return curPane;
 	}
 
-	public void setCurPane(String curPane) {
-		this.curPane = curPane;
+	public void setCurPane(String curPaneName) {
+		this.curPaneName = curPaneName;
+		
+		for(int i = 0; i < panes.size(); i++) {
+			if(panes.get(i).getName().equals(this.curPaneName)) {
+				curPane = panes.get(i);
+			}
+		}
 	}
 	
 	
