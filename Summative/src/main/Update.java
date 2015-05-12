@@ -1,5 +1,6 @@
 package main;
 
+import java.io.FileNotFoundException;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import res.Dungeon;
@@ -15,6 +16,8 @@ public class Update implements Runnable {
 	public volatile ReentrantReadWriteLock lck = Main.lck;
 	private Thread updateThread;
 	public volatile static boolean running;
+	public Dungeon curDungeon;
+	public int curRoom = 0;
 	
 	/**
 	 * Starts update thread
@@ -57,13 +60,21 @@ public class Update implements Runnable {
 	}
 	
 	public void generateDungeon() {
-		Dungeon newDungeon = new Dungeon();
+		try {
+			curDungeon = new Dungeon();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Executes all game actions
 	 */
 	private void update() {
-		
+		if(Main.appState == Main.GAME_STATE) {
+			if(Main.gameState == Main.GAME_DUNGEON) {
+				
+			}
+		}
 	}
 }

@@ -5,11 +5,14 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
+import main.GraphicsMain;
+
 public abstract class GUI implements MouseListener{
 	private LinkedList<Pane> panes;
 	private Pane curPane;
 	private String name, curPaneName;
 	private int x, y;
+	public int width = GraphicsMain.WIDTH, height = GraphicsMain.HEIGHT;
 	
 	public GUI(int x, int y, String name) {
 		this.x = x;

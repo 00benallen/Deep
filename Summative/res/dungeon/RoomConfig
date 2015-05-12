@@ -1,0 +1,47 @@
+START
+You enter a dark dungeon.
+1
+Go right
+2 
+Go left
+
+CHEST
+There is a chest in the centre of the room
+3
+Open chest
+1
+Go right
+2
+Go left
+
+COMBAT
+A[n] [enemy] appears!
+4
+Attack!
+1 
+Avoid and go right
+2 
+Avoid and go left
+
+ENCOUNTER
+A[n] [encounter] appears!
+5
+[Interact]
+1
+Avoid and go right
+2
+Avoid and go left
+
+EMPTY
+The room is empty.
+1
+Go right
+2
+Go left
+
+BOSS
+A dragon sits on a heap of gold! It attacks you
+4
+Fight back!
+6
+Leave dungeon

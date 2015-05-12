@@ -11,6 +11,7 @@ import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Level;
 
+import res.DungeonDrawer;
 import res.ShopDrawer;
 
 public class Render implements Runnable {
@@ -18,6 +19,7 @@ public class Render implements Runnable {
 	private Graphics2D g;
 	private Queue<BufferedImage> dblBuffer = new LinkedList<BufferedImage>();
 	private ShopDrawer sd;
+	private DungeonDrawer dd;
 	
 	//thread resources
 	public volatile ReentrantReadWriteLock lck = Main.lck;
@@ -30,6 +32,7 @@ public class Render implements Runnable {
 		Main.log.log(Level.INFO, "Constructing render");
 		this.g = (Graphics2D) g;
 		sd = new ShopDrawer();
+		dd = new DungeonDrawer();
 	}
 
 	/**
@@ -72,6 +75,11 @@ public class Render implements Runnable {
 		if(Main.appState == Main.GAME_STATE) {
 			if(Main.gameState == Main.GAME_SHOP) {
 				sd.draw(g);
+			}
+			else if(Main.gameState == Main.GAME_DUNGEON) {
+				lck.readLock().lock();
+				dd.draw(Main.update.curRoom, Main.update.curDungeon, g);
+				lck.readLock().unlock();
 			}
 		}
 		dblBuffer.add(screen);

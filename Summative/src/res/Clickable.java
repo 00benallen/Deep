@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-public class Clickable {
+public abstract class Clickable {
 	private Rectangle2D bound;
 	private BufferedImage image;
 	private int x, y, width, height;

@@ -21,7 +21,7 @@ public class ShopGUI extends GUI {
 		} catch(IOException e) {
 			Main.log.log(Level.SEVERE, "Cannot find shop gui images");
 		}
-		this.setCurPane("townButtons");
+		this.setCurPane("townPane");
 	}
 	
 	public ShopGUI(int x, int y, String name) {
@@ -31,7 +31,7 @@ public class ShopGUI extends GUI {
 		} catch(IOException e) {
 			Main.log.log(Level.SEVERE, "Cannot find shop gui images");
 		}
-		this.setCurPane("townButtons");
+		this.setCurPane("townPane");
 	}
 	
 	public void genGUI() throws IOException {
@@ -44,15 +44,15 @@ public class ShopGUI extends GUI {
 	
 	public void createShopPane() throws IOException {
 		BufferedImage smithButtonI = ImageIO.read(this.getClass().getClassLoader().getResource("shop/smithButton.png"));
-		Clickable smithButton = new Clickable((width/6), (height/3)*2 - height/6, smithButtonI, "smithButton");
+		Button smithButton = new Button((width/6), (height/3)*2 - height/6, smithButtonI, "smithButton");
 		BufferedImage innButtonI = ImageIO.read(this.getClass().getClassLoader().getResource("shop/innButton.png"));
-		Clickable innButton = new Clickable((width/6)*3, (height/3)*2 - height/6, innButtonI, "innButton");
+		Button innButton = new Button((width/6)*3, (height/3)*2 - height/6, innButtonI, "innButton");
 		BufferedImage mysticButtonI = ImageIO.read(this.getClass().getClassLoader().getResource("shop/mysticButton.png"));
-		Clickable mysticButton = new Clickable((width/6), (height/3)*2, mysticButtonI, "mysticButton");
+		Button mysticButton = new Button((width/6), (height/3)*2, mysticButtonI, "mysticButton");
 		BufferedImage dungeonButtonI = ImageIO.read(this.getClass().getClassLoader().getResource("shop/dungeonButton.png"));
-		Clickable dungeonButton = new Clickable((width/6)*3, (height/3)*2, dungeonButtonI, "dungeonButton");
+		Button dungeonButton = new Button((width/6)*3, (height/3)*2, dungeonButtonI, "dungeonButton");
 		BufferedImage shopBackground = ImageIO.read(this.getClass().getClassLoader().getResource("shop/shopBackground.png"));
-		Pane pane = new Pane("townButtons", shopBackground);
+		Pane pane = new Pane("townPane", shopBackground);
 		pane.add(smithButton);
 		pane.add(innButton);
 		pane.add(mysticButton);
@@ -62,27 +62,27 @@ public class ShopGUI extends GUI {
 	
 	public void createSmithPane() throws IOException {
 		BufferedImage smithBackground = ImageIO.read(this.getClass().getClassLoader().getResource("shop/smithBackground.png"));
-		Pane pane = new Pane("smithButtons", smithBackground);
+		Pane pane = new Pane("smithPane", smithBackground);
 		addPane(pane);
 	}
 	
 	public void createInnPane() throws IOException {
 		BufferedImage innBackground = ImageIO.read(this.getClass().getClassLoader().getResource("shop/innBackground.png"));
-		Pane pane = new Pane("innButtons", innBackground);
+		Pane pane = new Pane("innPane", innBackground);
 		addPane(pane);
 	}
 	
 	public void createMysticPane() throws IOException {
 		BufferedImage mysticBackground = ImageIO.read(this.getClass().getClassLoader().getResource("shop/mysticBackground.png"));
-		Pane pane = new Pane("mysticButtons", mysticBackground);
+		Pane pane = new Pane("mysticPane", mysticBackground);
 		addPane(pane);
 	}
 	
 	public void createDungeonPane() throws IOException {
 		BufferedImage dungeonBackground = ImageIO.read(this.getClass().getClassLoader().getResource("shop/dungeonBackground.png"));
-		Pane pane = new Pane("dungeonButtons", dungeonBackground);
+		Pane pane = new Pane("dungeonPane", dungeonBackground);
 		BufferedImage enterButtonI = ImageIO.read(this.getClass().getClassLoader().getResource("shop/dungeonEnterButton.png"));
-		Clickable enterButton = new Clickable((width/3), (height/3)*2, enterButtonI, "dungeonEnterButton");
+		Button enterButton = new Button((width/3), (height/3)*2, enterButtonI, "dungeonEnterButton");
 		pane.add(enterButton);
 		addPane(pane);
 	}
@@ -90,11 +90,13 @@ public class ShopGUI extends GUI {
 	public void mouseClicked(MouseEvent e) {
 		for(int i = 0; i < getCurPane().getElements().size(); i++) {
 			if(getCurPane().getElement(i).getBound().contains(e.getPoint())) {
-				if(getCurPane().getName().equals("townButtons")) {
+				if(getCurPane().getName().equals("townPane")) {
 					scanTownButtons(i);
+					break;
 				}
-				if(getCurPane().getName().equals("dungeonButtons")) {
+				if(getCurPane().getName().equals("dungeonPane")) {
 					scanDungeonButtons(i);
+					break;
 				}
 						
 			}
@@ -103,16 +105,16 @@ public class ShopGUI extends GUI {
 	
 	private void scanTownButtons(int i) {
 		if(getCurPane().getElement(i).getName().equals("smithButton")) {
-			this.setCurPane("smithButtons");
+			this.setCurPane("smithPane");
 		}
 		if(getCurPane().getElement(i).getName().equals("innButton")) {
-			this.setCurPane("innButtons");
+			this.setCurPane("innPane");
 		}
 		if(getCurPane().getElement(i).getName().equals("mysticButton")) {
-			this.setCurPane("mysticButtons");
+			this.setCurPane("mysticPane");
 		}
 		if(getCurPane().getElement(i).getName().equals("dungeonButton")) {
-			this.setCurPane("dungeonButtons");
+			this.setCurPane("dungeonPane");
 		}
 	}
 	

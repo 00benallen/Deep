@@ -2,15 +2,13 @@ package main;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.logging.Level;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import res.DeepButton;
-
-
 
 public class GraphicsMain {
 	
@@ -43,6 +41,10 @@ public class GraphicsMain {
 	
 	public void addMouseListener(MouseListener l) {
 		window.addMouseListener(l);
+	}
+	
+	public void addKeyListener(KeyListener l) {
+		window.addKeyListener(l);
 	}
 	
 	public void startGame() {
@@ -84,10 +86,7 @@ public class GraphicsMain {
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		//JLabel background = new JLabel();
-		//background.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("")));
-		
-		DeepButton startButton = new DeepButton("Start");
+		JButton startButton = new JButton("Start");
 		startButton.setActionCommand("Start");
 		startButton.addActionListener(bl);
 		
