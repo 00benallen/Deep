@@ -2,7 +2,7 @@ START
 You enter a dark dungeon.
 1
 Go right
-2 
+2
 Go left
 
 CHEST
@@ -18,9 +18,9 @@ COMBAT
 A[n] [enemy] appears!
 4
 Attack!
-1 
+1
 Avoid and go right
-2 
+2
 Avoid and go left
 
 ENCOUNTER

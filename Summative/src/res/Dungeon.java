@@ -44,7 +44,7 @@ public class Dungeon {
 		if(root.roomNum == roomNum) {
 			return root;
 		}
-		if(roomNum < bossRoom.roomNum) {
+		if(root.roomNum == bossRoom.roomNum && roomNum != bossRoom.roomNum) {
 			return null;
 		}
 		

@@ -2,6 +2,7 @@ package res;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -21,7 +22,13 @@ public class TextBox extends Clickable {
 		super.draw(g);
 		g.setColor(Color.black);
 		g.setFont(new Font("Arial", Font.BOLD, 22));
-		g.drawString(text, this.getX() + this.getWidth()/8, this.getY() + this.getHeight()/4);
+		String[] textLines = text.split("\n");
+		g.drawString(textLines[0], this.getX() + this.getWidth()/8, this.getY() + this.getHeight()/4);
+		for(int i = 1; i < textLines.length; i++) {
+			String line = "[" + i + "]" + textLines[i];
+			FontMetrics f = g.getFontMetrics();
+			g.drawString(line, this.getX() + this.getWidth()/8, this.getY() + this.getHeight()/4 + i*f.getHeight());
+		}
 	}
 
 }

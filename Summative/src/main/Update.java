@@ -61,7 +61,9 @@ public class Update implements Runnable {
 	
 	public void generateDungeon() {
 		try {
+			lck.writeLock().lock();
 			curDungeon = new Dungeon();
+			lck.writeLock().unlock();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -17,48 +17,58 @@ public class Room {
 	public final static int CHEST = 0, COMBAT = 1, ENCOUNTER = 2, EMPTY = 3, START = 4, BOSS = 5;
 	
 	public Room(int type, int roomNum) throws FileNotFoundException {
-		File file = new File(this.getClass().getClassLoader().getResource("dungeon/RoomConfig").toString());
-		Scanner s = new Scanner(file);
-		LinkedList<String> lines = new LinkedList<String>();
-		while(s.hasNextLine()) {
-			lines.add(s.nextLine());
-		}
 		
 		this.setType(type);
 		decisions = new int[6];
 		decisionsText = new String[6];
 		if(type == CHEST) {
-			setPicture(null);
-			for(int i = 0; i < lines.size(); i++) {
-				if(lines.get(i).equals("CHEST")) {
-					decisions[0] = Integer.parseInt(lines.get(i+2));
-					decisionsText[0] = lines.get(i+3);
-					setDesc(lines.get(i+1));
-					break;
-				}
-			}
+			getInfo("CHEST");
 		}
+		
 		if(type == COMBAT) {
-			setPicture(null);
-			setDesc("An enemy appears!");
+			getInfo("COMBAT");
 		}
 		if(type == ENCOUNTER) {
-			setPicture(null);
-			setDesc("An old man is in the room");
+			getInfo("ENCOUNTER");
 		}
 		if(type == EMPTY) {
-			setPicture(null);
-			setDesc("There is nothing here");
+			getInfo("EMPTY");
 		}
 		if(type == START) {
-			setPicture(null);
-			setDesc("You enter a dark dungeon");
+			getInfo("START");
 		}
 		if(type == BOSS) {
-			setPicture(null);
-			setDesc("You have found the dragon!");
+			getInfo("BOSS");
 		}
 		this.roomNum = roomNum;
+	}
+	
+	public void getInfo(String type) {
+		Scanner s = new Scanner(this.getClass().getClassLoader().getResourceAsStream("dungeon/RoomConfig"));
+		LinkedList<String> lines = new LinkedList<String>();
+		while(s.hasNextLine()) {
+			lines.add(s.nextLine());
+		}
+		setPicture(null);
+		int line = 0;
+		for(int i = 0; i < lines.size(); i++) {
+			if(lines.get(i).equals(type)) {
+				line = i;
+				break;
+			}
+		}
+		setDesc(lines.get(line+1));
+		line++;
+		int cnt = 0;
+		while(!lines.get(line+1).equals("")) {
+			decisions[cnt] = Integer.parseInt(lines.get(line+1));
+			decisionsText[cnt] = lines.get(line+2);
+			line += 2;
+			cnt++;
+			if(line > lines.size()-2) {
+				break;
+			}
+		}
 	}
 
 	public String getDesc() {
@@ -83,5 +93,17 @@ public class Room {
 
 	public void setPicture(BufferedImage picture) {
 		this.picture = picture;
+	}
+	
+	public int getDecision(int index) {return decisions[index];}
+	public String getDecisionText() {
+		String decisionText = "";
+		for(int i = 0; i < decisionsText.length; i++) {
+			if(decisionsText[i] == null) {
+				break;
+			}
+			decisionText =  decisionText + decisionsText[i] + "\n";
+		}
+		return decisionText;
 	}
 }

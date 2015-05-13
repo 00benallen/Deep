@@ -30,6 +30,7 @@ public abstract class Clickable {
 	public String getName() {return name;}
 	public Rectangle2D getBound() {return bound;}
 	public boolean isClicked() {return clicked;}
+	public void setImage(BufferedImage image) {this.image = image;}
 	
 	public void draw(Graphics2D g) {
 		g.drawImage(image, x, y, width, height, null);
