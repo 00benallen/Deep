@@ -1,9 +1,7 @@
 package res;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -14,7 +12,7 @@ public class Room {
 	private String desc;
 	private String[] decisionsText;
 	private int[] decisions;
-	public final static int CHEST = 0, COMBAT = 1, ENCOUNTER = 2, EMPTY = 3, START = 4, BOSS = 5;
+	public final static int START = 0, BOSS = 1, CHEST = 2, COMBAT = 3, ENCOUNTER = 4, EMPTY = 5;
 	
 	public Room(int type, int roomNum) throws FileNotFoundException {
 		
@@ -49,6 +47,7 @@ public class Room {
 		while(s.hasNextLine()) {
 			lines.add(s.nextLine());
 		}
+		s.close();
 		setPicture(null);
 		int line = 0;
 		for(int i = 0; i < lines.size(); i++) {

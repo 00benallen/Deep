@@ -18,6 +18,7 @@ public class Update implements Runnable {
 	public volatile static boolean running;
 	public Dungeon curDungeon;
 	public int curRoom = 0;
+	public boolean dungeonGenerated;
 	
 	/**
 	 * Starts update thread
@@ -61,9 +62,8 @@ public class Update implements Runnable {
 	
 	public void generateDungeon() {
 		try {
-			lck.writeLock().lock();
 			curDungeon = new Dungeon();
-			lck.writeLock().unlock();
+			dungeonGenerated = true;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -7,28 +7,29 @@ public class Dungeon {
 	private Room startRoom;
 	private Room bossRoom;
 	private int curRoom;
+	private int rooms;
 	Random r;
 	
 	public Dungeon() throws FileNotFoundException {
 		startRoom = new Room(Room.START, 0);
 		
-		
 		r = new Random();
-		int l = r.nextInt(10) + 5 ;
-		bossRoom = new Room(Room.BOSS, l);
+		int l = r.nextInt(5) + 5 ;
 		genDungeonRooms(startRoom, l);
-		setCurRoom(0);
+		setCurRoomNum (0);
 	}
 	
 	private void genDungeonRooms(Room root, int length) throws FileNotFoundException {
-		int gType = r.nextInt(6);
-		root.left = new Room(gType, root.roomNum+1);
-		root.right = new Room(gType, root.roomNum+2);
+		int gType = r.nextInt(4) + 2;
+		root.left = new Room(gType, (root.roomNum*2)+1);
+		root.right = new Room(gType, (root.roomNum*2)+2);
+		rooms += 2;
 		if(length > 0) {
 			genDungeonRooms(root.left, length-1);
 			genDungeonRooms(root.right, length-1);
 		}
 		else {
+			bossRoom = new Room(Room.BOSS, rooms+1);
 			root.left.left = bossRoom;
 			root.left.right = bossRoom;
 			root.right.left = bossRoom;
@@ -48,8 +49,15 @@ public class Dungeon {
 			return null;
 		}
 		
-		Room resultLeft = findRoom(root.left, roomNum);
-		Room resultRight = findRoom(root.right, roomNum);
+		Room resultLeft = null;
+		if(root.left != null) {
+			resultLeft = findRoom(root.left, roomNum);
+		}
+		Room resultRight = null;
+		if(root.right != null) {
+			resultRight = findRoom(root.right, roomNum);
+		}
+		
 		
 		if(resultLeft != null) {
 			return resultLeft;
@@ -64,11 +72,15 @@ public class Dungeon {
 		
 	}
 
-	public int getCurRoom() {
+	public int getCurRoomNum() {
 		return curRoom;
 	}
 
-	public void setCurRoom(int curRoom) {
+	public void setCurRoomNum(int curRoom) {
 		this.curRoom = curRoom;
+	}
+	
+	public Room getCurRoom() {
+		return getRoom(curRoom);
 	}
 }

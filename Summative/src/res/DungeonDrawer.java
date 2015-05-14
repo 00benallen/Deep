@@ -13,10 +13,12 @@ public class DungeonDrawer {
 			dungeonGUI.draw(g);
 		}
 		else {
-			Main.log.log(Level.INFO, "Generating dungeon GUI");
-			dungeonGUI = new DungeonGUI(0, 0, "dungeonGUI");
-			Main.gMain.addMouseListener(dungeonGUI);
-			Main.gMain.addKeyListener(dungeonGUI);
+			if(Main.update.dungeonGenerated) {
+				Main.log.log(Level.INFO, "Generating dungeon GUI");
+				dungeonGUI = new DungeonGUI(0, 0, "dungeonGUI");
+				Main.gMain.addMouseListener(dungeonGUI);
+				Main.gMain.addKeyListener(dungeonGUI);
+			}
 		}
 	}
 

@@ -12,11 +12,12 @@ import javax.imageio.ImageIO;
 import main.Main;
 
 public class DungeonGUI extends GUI implements KeyListener, MouseListener {
-	Dungeon curDungeon = Main.update.curDungeon;
+	Dungeon curDungeon;
 
 	public DungeonGUI(int x, int y, String name) {
 		super(x, y, name);
 		try {
+			curDungeon = Main.update.curDungeon;
 			genGUI();
 		} catch(IOException e) {
 			
@@ -32,9 +33,9 @@ public class DungeonGUI extends GUI implements KeyListener, MouseListener {
 		BufferedImage textBoxI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/textBox.png"));
 		TextBox textBox = new TextBox((width/16)*2, (height/2) + height/16,textBoxI, "textBox");
 		Main.lck.readLock().lock();
-		Room curRoom = Main.update.curDungeon.getRoom(Main.update.curDungeon.getCurRoom());
-		textBox.setText(curRoom.getDesc() + "\n" + curRoom.getDecisionText());
+		Room curRoom = curDungeon.getCurRoom();
 		Main.lck.readLock().unlock();
+		textBox.setText(curRoom.getDesc() + "\n" + curRoom.getDecisionText());
 		BufferedImage toolBarI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/toolBar.png"));
 		ToolBar toolBar = new ToolBar(width/16, height - (height/16)*2, toolBarI, "toolBar");
 		pane.add(toolBar);
@@ -55,8 +56,9 @@ public class DungeonGUI extends GUI implements KeyListener, MouseListener {
 			}
 		}
 		
-		roomImage.setImage(null);
-		Room curRoom = Main.update.curDungeon.getRoom(Main.update.curDungeon.getCurRoom());
+		Main.lck.readLock().lock();
+		Room curRoom = Main.update.curDungeon.getCurRoom();
+		Main.lck.readLock().unlock();
 		textBox.setText(curRoom.getDesc() + "\n" + curRoom.getDecisionText());
 		
 	}
@@ -111,22 +113,43 @@ public class DungeonGUI extends GUI implements KeyListener, MouseListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		if(e.getKeyChar() == '1') {
-			if(curDungeon.getRoom(curDungeon.getCurRoom()).getDecision(0) == 1) {
-				Main.lck.writeLock().lock();
-				curDungeon.setCurRoom(curDungeon.getRoom(curDungeon.getCurRoom()).right.roomNum);
-				Main.lck.writeLock().unlock();
-				Main.lck.readLock().lock();
-				updateUI();
-				Main.lck.readLock().unlock();
-			}
-			if(curDungeon.getRoom(curDungeon.getCurRoom()).getDecision(0) == 2) {
-				Main.lck.writeLock().lock();
-				curDungeon.setCurRoom(curDungeon.getRoom(curDungeon.getCurRoom()).left.roomNum);
-				Main.lck.writeLock().unlock();
-				Main.lck.readLock().lock();
-				updateUI();
-				Main.lck.readLock().unlock();
-			}
+			right(0);
+			left(0);
+			openChest(0);
 		}
+		if(e.getKeyChar() == '2') {
+			right(1);
+			left(1);
+			openChest(1);
+		}
+		if(e.getKeyChar() == '3') {
+			right(2);
+			left(2);
+			openChest(2);
+		}
+	}
+	
+	public void right(int key) {
+		if(curDungeon.getCurRoom().getDecision(key) == 1) {
+			Main.lck.writeLock().lock();
+			curDungeon.setCurRoomNum(curDungeon.getCurRoom().right.roomNum);
+			System.out.println(curDungeon.getCurRoom().roomNum);
+			Main.lck.writeLock().unlock();
+			updateUI();
+		}
+	}
+	
+	public void left(int key) {
+		if(curDungeon.getCurRoom().getDecision(key) == 2) {
+			Main.lck.writeLock().lock();
+			curDungeon.setCurRoomNum(curDungeon.getCurRoom().left.roomNum);
+			System.out.println(curDungeon.getCurRoom().roomNum);
+			Main.lck.writeLock().unlock();
+			updateUI();
+		}
+	}
+	
+	public void openChest(int key) {
+		//if(curDungeon.getRoom(curDungeon.))
 	}
 }

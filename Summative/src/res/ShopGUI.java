@@ -107,13 +107,13 @@ public class ShopGUI extends GUI {
 		if(getCurPane().getElement(i).getName().equals("smithButton")) {
 			this.setCurPane("smithPane");
 		}
-		if(getCurPane().getElement(i).getName().equals("innButton")) {
+		else if(getCurPane().getElement(i).getName().equals("innButton")) {
 			this.setCurPane("innPane");
 		}
-		if(getCurPane().getElement(i).getName().equals("mysticButton")) {
+		else if(getCurPane().getElement(i).getName().equals("mysticButton")) {
 			this.setCurPane("mysticPane");
 		}
-		if(getCurPane().getElement(i).getName().equals("dungeonButton")) {
+		else if(getCurPane().getElement(i).getName().equals("dungeonButton")) {
 			this.setCurPane("dungeonPane");
 		}
 	}

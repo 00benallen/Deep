@@ -77,9 +77,7 @@ public class Render implements Runnable {
 				sd.draw(g);
 			}
 			else if(Main.gameState == Main.GAME_DUNGEON) {
-				lck.readLock().lock();
 				dd.draw(Main.update.curRoom, Main.update.curDungeon, g);
-				lck.readLock().unlock();
 			}
 		}
 		dblBuffer.add(screen);

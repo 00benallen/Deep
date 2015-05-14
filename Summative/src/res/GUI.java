@@ -2,7 +2,6 @@ package res;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import main.GraphicsMain;
