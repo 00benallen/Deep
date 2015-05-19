@@ -1,4 +1,4 @@
-package res;
+package res.menu;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,6 +9,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import res.Dungeon;
+import res.Item;
+import res.Room;
 import main.Main;
 
 public class DungeonGUI extends GUI implements KeyListener, MouseListener {
@@ -57,6 +60,7 @@ public class DungeonGUI extends GUI implements KeyListener, MouseListener {
 		}
 		
 		Main.lck.readLock().lock();
+		curDungeon = Main.update.curDungeon;
 		Room curRoom = Main.update.curDungeon.getCurRoom();
 		Main.lck.readLock().unlock();
 		textBox.setText(curRoom.getDesc() + "\n" + curRoom.getDecisionText());
@@ -133,7 +137,6 @@ public class DungeonGUI extends GUI implements KeyListener, MouseListener {
 		if(curDungeon.getCurRoom().getDecision(key) == 1) {
 			Main.lck.writeLock().lock();
 			curDungeon.setCurRoomNum(curDungeon.getCurRoom().right.roomNum);
-			System.out.println(curDungeon.getCurRoom().roomNum);
 			Main.lck.writeLock().unlock();
 			updateUI();
 		}
@@ -143,13 +146,23 @@ public class DungeonGUI extends GUI implements KeyListener, MouseListener {
 		if(curDungeon.getCurRoom().getDecision(key) == 2) {
 			Main.lck.writeLock().lock();
 			curDungeon.setCurRoomNum(curDungeon.getCurRoom().left.roomNum);
-			System.out.println(curDungeon.getCurRoom().roomNum);
 			Main.lck.writeLock().unlock();
 			updateUI();
 		}
 	}
 	
 	public void openChest(int key) {
-		//if(curDungeon.getRoom(curDungeon.))
+		if(curDungeon.getCurRoom().getDecision(key) == 3) {
+			Item chestItem = curDungeon.genChestItem();
+			Main.update.player.addItem(chestItem);
+			TextBox textBox = null;
+			for(int i = 0; i < getCurPane().getElements().size(); i++) {
+				if(getCurPane().getElement(i) instanceof TextBox) {
+					textBox = (TextBox) getCurPane().getElement(i);
+				}
+			}
+			curDungeon.getCurRoom().removeDecision(key);
+			textBox.setText(textBox.getText() + "/mYou have found a " + chestItem.getName());
+		}
 	}
 }

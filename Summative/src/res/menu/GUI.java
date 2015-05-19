@@ -1,4 +1,4 @@
-package res;
+package res.menu;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseListener;

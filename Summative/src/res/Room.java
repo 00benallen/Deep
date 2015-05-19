@@ -105,4 +105,20 @@ public class Room {
 		}
 		return decisionText;
 	}
+	
+	public void removeDecision(int index) {
+		decisions[index] = 0;
+		decisionsText[index] = "";
+		
+		int buff = 0;
+		String sBuff = "";
+		for(int i = decisions.length-1; i >= index; i--) {
+			int ind = decisions[i];
+			decisions[i] = buff;
+			buff = ind;
+			String sind = decisionsText[i];
+			decisionsText[i] = sBuff;
+			sBuff = sind;
+		}
+	}
 }

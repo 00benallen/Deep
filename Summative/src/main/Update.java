@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import res.Dungeon;
+import res.Player;
 
 /**
  * Update class for Trash Smash, updates at 60 ups, runs game logic
@@ -17,8 +18,8 @@ public class Update implements Runnable {
 	private Thread updateThread;
 	public volatile static boolean running;
 	public Dungeon curDungeon;
-	public int curRoom = 0;
 	public boolean dungeonGenerated;
+	public Player player;
 	
 	/**
 	 * Starts update thread
@@ -36,6 +37,7 @@ public class Update implements Runnable {
 		long lastTime = System.nanoTime();
 		double nanoPerUpdate = 1000000000D/60D;
 		double delta = 0D;
+		player = new Player();
 		if(Main.appState == Main.GAME_STATE) {
 			while(running) {
 				long now = System.nanoTime();

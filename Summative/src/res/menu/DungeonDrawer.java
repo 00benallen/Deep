@@ -1,8 +1,9 @@
-package res;
+package res.menu;
 
 import java.awt.Graphics2D;
 import java.util.logging.Level;
 
+import res.Dungeon;
 import main.Main;
 
 public class DungeonDrawer {

@@ -83,4 +83,32 @@ public class Dungeon {
 	public Room getCurRoom() {
 		return getRoom(curRoom);
 	}
+
+	public Item genChestItem() {
+		Random rand = new Random();
+		int itemType = rand.nextInt(6);
+		Item genItem = null;
+		
+		if(itemType == Item.HELMET) {
+			genItem = new Item(Item.HELMET);
+		}
+		if(itemType == Item.CHESTPLATE) {
+			genItem = new Item(Item.CHESTPLATE);
+		}
+		if(itemType == Item.LEGGINGS) {
+			genItem = new Item(Item.LEGGINGS);
+		}
+		if(itemType == Item.BOOTS) {
+			genItem = new Item(Item.BOOTS);
+		}
+		if(itemType == Item.AMULET) {
+			genItem = new Item(Item.AMULET);
+		}
+		if(itemType == Item.RING) {
+			genItem = new Item(Item.RING);
+		}
+		
+		return genItem;
+		
+	}
 }

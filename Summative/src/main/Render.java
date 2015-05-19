@@ -11,8 +11,8 @@ import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Level;
 
-import res.DungeonDrawer;
-import res.ShopDrawer;
+import res.menu.DungeonDrawer;
+import res.menu.ShopDrawer;
 
 public class Render implements Runnable {
 	//graphics resources
@@ -77,7 +77,7 @@ public class Render implements Runnable {
 				sd.draw(g);
 			}
 			else if(Main.gameState == Main.GAME_DUNGEON) {
-				dd.draw(Main.update.curRoom, Main.update.curDungeon, g);
+				dd.draw(Main.update.player.getCurRoom(), Main.update.curDungeon, g);
 			}
 		}
 		dblBuffer.add(screen);
