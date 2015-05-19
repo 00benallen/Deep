@@ -40,7 +40,7 @@ public class Item {
 			setPrice(10);
 			Random rand = new Random();
 			setMod(rand.nextInt(3) + 2);
-			setModType(rand.nextInt(4) + 1);
+			setModType(rand.nextInt(4));
 			setName("Amulet");
 			
 		}
@@ -49,7 +49,7 @@ public class Item {
 			setPrice(8);
 			Random rand = new Random();
 			setMod(rand.nextInt(3) + 1);
-			setModType(rand.nextInt(4) + 1);
+			setModType(rand.nextInt(4));
 			setName("Ring");
 		}
 	}

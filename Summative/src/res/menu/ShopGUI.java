@@ -86,46 +86,4 @@ public class ShopGUI extends GUI {
 		pane.add(enterButton);
 		addPane(pane);
 	}
-	
-	public void mouseClicked(MouseEvent e) {
-		for(int i = 0; i < getCurPane().getElements().size(); i++) {
-			if(getCurPane().getElement(i).getBound().contains(e.getPoint())) {
-				if(getCurPane().getName().equals("townPane")) {
-					scanTownButtons(i);
-					break;
-				}
-				if(getCurPane().getName().equals("dungeonPane")) {
-					scanDungeonButtons(i);
-					break;
-				}
-						
-			}
-		}
-	}
-	
-	private void scanTownButtons(int i) {
-		if(getCurPane().getElement(i).getName().equals("smithButton")) {
-			this.setCurPane("smithPane");
-		}
-		else if(getCurPane().getElement(i).getName().equals("innButton")) {
-			this.setCurPane("innPane");
-		}
-		else if(getCurPane().getElement(i).getName().equals("mysticButton")) {
-			this.setCurPane("mysticPane");
-		}
-		else if(getCurPane().getElement(i).getName().equals("dungeonButton")) {
-			this.setCurPane("dungeonPane");
-		}
-	}
-	
-	private void scanDungeonButtons(int i) {
-		if(getCurPane().getElement(i).getName().equals("dungeonEnterButton")) {
-			Main.startDungeon();
-		}
-	}
-	
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
-	public void mousePressed(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
 }

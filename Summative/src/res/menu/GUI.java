@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import main.GraphicsMain;
 
-public abstract class GUI implements MouseListener{
+public abstract class GUI {
 	private LinkedList<Pane> panes;
 	private Pane curPane;
 	private String name, curPaneName;

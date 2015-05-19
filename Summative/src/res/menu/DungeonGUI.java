@@ -1,20 +1,14 @@
 package res.menu;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 import res.Dungeon;
-import res.Item;
 import res.Room;
 import main.Main;
 
-public class DungeonGUI extends GUI implements KeyListener, MouseListener {
+public class DungeonGUI extends GUI {
 	Dungeon curDungeon;
 
 	public DungeonGUI(int x, int y, String name) {
@@ -47,7 +41,7 @@ public class DungeonGUI extends GUI implements KeyListener, MouseListener {
 		addPane(pane);
 	}
 	
-	private void updateUI() {
+	public void updateUI() {
 		ImageBox roomImage = null;
 		TextBox textBox = null;
 		for(int i = 0; i < getCurPane().getElements().size(); i++) {
@@ -65,104 +59,5 @@ public class DungeonGUI extends GUI implements KeyListener, MouseListener {
 		Main.lck.readLock().unlock();
 		textBox.setText(curRoom.getDesc() + "\n" + curRoom.getDecisionText());
 		
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		for(int i = 0; i < getCurPane().getElements().size(); i++) {
-			if(getCurPane().getElement(i).getBound().contains(e.getPoint())) {
-				if(getCurPane().getName().equals("roomPane")) {
-					
-				}		
-			}
-		}	
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		if(e.getKeyChar() == '1') {
-			right(0);
-			left(0);
-			openChest(0);
-		}
-		if(e.getKeyChar() == '2') {
-			right(1);
-			left(1);
-			openChest(1);
-		}
-		if(e.getKeyChar() == '3') {
-			right(2);
-			left(2);
-			openChest(2);
-		}
-	}
-	
-	public void right(int key) {
-		if(curDungeon.getCurRoom().getDecision(key) == 1) {
-			Main.lck.writeLock().lock();
-			curDungeon.setCurRoomNum(curDungeon.getCurRoom().right.roomNum);
-			Main.lck.writeLock().unlock();
-			updateUI();
-		}
-	}
-	
-	public void left(int key) {
-		if(curDungeon.getCurRoom().getDecision(key) == 2) {
-			Main.lck.writeLock().lock();
-			curDungeon.setCurRoomNum(curDungeon.getCurRoom().left.roomNum);
-			Main.lck.writeLock().unlock();
-			updateUI();
-		}
-	}
-	
-	public void openChest(int key) {
-		if(curDungeon.getCurRoom().getDecision(key) == 3) {
-			Item chestItem = curDungeon.genChestItem();
-			Main.update.player.addItem(chestItem);
-			TextBox textBox = null;
-			for(int i = 0; i < getCurPane().getElements().size(); i++) {
-				if(getCurPane().getElement(i) instanceof TextBox) {
-					textBox = (TextBox) getCurPane().getElement(i);
-				}
-			}
-			curDungeon.getCurRoom().removeDecision(key);
-			textBox.setText(textBox.getText() + "/mYou have found a " + chestItem.getName());
-		}
 	}
 }
