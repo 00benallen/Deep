@@ -19,6 +19,5 @@ public class ShopDrawer {
 			ShopListener sl = new ShopListener(shopGUI);
 			Main.gMain.addMouseListener(sl);
 		}
-		
 	}
 }

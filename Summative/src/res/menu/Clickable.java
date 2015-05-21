@@ -35,4 +35,6 @@ public abstract class Clickable {
 	public void draw(Graphics2D g) {
 		g.drawImage(image, x, y, width, height, null);
 	}
+	
+	public BufferedImage getImage() {return image;}
 }

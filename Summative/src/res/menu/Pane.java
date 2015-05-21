@@ -26,6 +26,15 @@ public class Pane {
 	public String getName() {return name;}
 	public void add(Clickable el) {buttons.add(el);}
 	
+	
+	public Clickable getElement(String name) {
+		for(int i = 0; i < buttons.size(); i++) {
+			if(buttons.get(i).getName().equals(name)) {
+				return buttons.get(i);
+			}
+		}
+		return null;
+	}
 	public void remove(String name) {
 		for(int i = 0; i < buttons.size(); i++) {
 			if(buttons.get(i).getName().equals(name)) {

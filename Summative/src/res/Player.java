@@ -43,6 +43,8 @@ public class Player {
 		items--;
 	}
 	
+	public int getItems() {return items;}
+	
 	public void addSpell(Spell spell) {
 		learned.add(spell);
 	}

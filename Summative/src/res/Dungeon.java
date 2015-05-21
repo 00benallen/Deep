@@ -1,6 +1,7 @@
 package res;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Random;
 
 public class Dungeon {
@@ -84,7 +85,7 @@ public class Dungeon {
 		return getRoom(curRoom);
 	}
 
-	public Item genChestItem() {
+	public Item genChestItem() throws IOException {
 		Random rand = new Random();
 		int itemType = rand.nextInt(6);
 		Item genItem = null;

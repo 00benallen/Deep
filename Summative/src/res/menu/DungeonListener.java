@@ -4,14 +4,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import main.Main;
 import res.Dungeon;
 import res.Item;
 
 public class DungeonListener implements KeyListener, MouseListener{
-	Dungeon curDungeon;
-	DungeonGUI dg;
+	private Dungeon curDungeon;
+	private DungeonGUI dg;
+	private boolean invOpen;
 	
 	public DungeonListener(DungeonGUI dg) {
 		Main.lck.readLock().lock();
@@ -99,6 +101,25 @@ public class DungeonListener implements KeyListener, MouseListener{
 			}
 			e.consume();
 		}
+		else if(e.getKeyChar() == 'i') {
+			if(!invOpen) {
+				try {
+					dg.openInventory();
+					invOpen = true;
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			else {
+				try {
+					dg.closeInventory();
+					invOpen = false;
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+		}
 	}
 	
 	public boolean right(int key) {
@@ -132,7 +153,12 @@ public class DungeonListener implements KeyListener, MouseListener{
 	public boolean openChest(int key) {
 		if(curDungeon.getCurRoom().getDecision(key) == 3) {
 			Main.lck.writeLock().lock();
-			Item chestItem = curDungeon.genChestItem();
+			Item chestItem = null;
+			try {
+				chestItem = curDungeon.genChestItem();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			Main.update.player.addItem(chestItem);
 			TextBox textBox = null;
 			for(int i = 0; i < dg.getCurPane().getElements().size(); i++) {

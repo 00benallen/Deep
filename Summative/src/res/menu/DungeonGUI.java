@@ -9,7 +9,8 @@ import res.Room;
 import main.Main;
 
 public class DungeonGUI extends GUI {
-	Dungeon curDungeon;
+	private Dungeon curDungeon;
+	private String textBuff;
 
 	public DungeonGUI(int x, int y, String name) {
 		super(x, y, name);
@@ -59,5 +60,24 @@ public class DungeonGUI extends GUI {
 		Main.lck.readLock().unlock();
 		textBox.setText(curRoom.getDesc() + "\n" + curRoom.getDecisionText());
 		
+	}
+	
+	public void openInventory() throws IOException {
+		BufferedImage invI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/inventoryBackground.png"));
+		InventoryBox inv = new InventoryBox((width/16)*2, (height/2) + height/16, invI, "invBox");
+		Main.lck.readLock().lock();
+		inv.addInventory(Main.update.player);
+		Main.lck.readLock().unlock();
+		textBuff = ((TextBox) this.getCurPane().getElement("textBox")).getText();
+		this.getCurPane().remove("textBox");
+		this.getCurPane().add(inv);
+	}
+
+	public void closeInventory() throws IOException {
+		BufferedImage textBoxI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/textBox.png"));
+		TextBox textBox = new TextBox((width/16)*2, (height/2) + height/16,textBoxI, "textBox");
+		textBox.setText(textBuff);
+		this.getCurPane().remove("invBox");
+		this.getCurPane().add(textBox);
 	}
 }
