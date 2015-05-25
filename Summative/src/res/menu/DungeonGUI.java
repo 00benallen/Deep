@@ -11,6 +11,7 @@ import main.Main;
 public class DungeonGUI extends GUI {
 	private Dungeon curDungeon;
 	private String textBuff;
+	private InventoryBox inv;
 
 	public DungeonGUI(int x, int y, String name) {
 		super(x, y, name);
@@ -64,7 +65,7 @@ public class DungeonGUI extends GUI {
 	
 	public void openInventory() throws IOException {
 		BufferedImage invI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/inventoryBackground.png"));
-		InventoryBox inv = new InventoryBox((width/16)*2, (height/2) + height/16, invI, "invBox");
+		inv = new InventoryBox((width/16)*2, (height/2) + height/16, invI, "invBox");
 		Main.lck.readLock().lock();
 		inv.addInventory(Main.update.player);
 		Main.lck.readLock().unlock();
@@ -80,4 +81,6 @@ public class DungeonGUI extends GUI {
 		this.getCurPane().remove("invBox");
 		this.getCurPane().add(textBox);
 	}
+	
+	public InventoryBox getInv() {return inv;}
 }

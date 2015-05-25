@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 public class Player {
 	private LinkedList<Item> inv;
+	private Item head, chest, legs, feet, neck, hand;
 	private int items;
 	private int health, magic, gold, curRoom, prot;
 	private int[] stats;
@@ -30,8 +31,6 @@ public class Player {
 		if(items < 16) {
 			inv.add(newItem);
 			items++;
-			stats[newItem.getModType()] += newItem.getMod();
-			setProt(newItem.getProt());
 		}
 	}
 	
@@ -58,5 +57,57 @@ public class Player {
 	}
 	
 	public int getStat(int type) {return stats[type];}
-
+	
+	public void equip(Item i) {
+		if(i.getType() == Item.HELMET) {
+			addItem(head);
+			head = i;
+		}
+		if(i.getType() == Item.CHESTPLATE) {
+			addItem(chest);
+			chest = i;
+		}
+		if(i.getType() == Item.LEGGINGS) {
+			addItem(legs);
+			legs = i;
+		}
+		if(i.getType() == Item.BOOTS) {
+			addItem(feet);
+			feet = i;
+		}
+		if(i.getType() == Item.RING) {
+			addItem(hand);
+			hand = i;
+		}
+		if(i.getType() == Item.AMULET) {
+			addItem(neck);
+			neck = i;
+		}
+		updateStats();
+	}
+	
+	private void updateStats() {
+		for(int i = 0; i < 4; i++) {
+			stats[i] = 0;
+		}
+		if(hand != null) {
+			stats[hand.getModType()] += hand.getMod();
+		}
+		if(neck != null) {
+			stats[neck.getModType()] += neck.getMod();
+		}
+		setProt(0);
+		if(head != null) {
+			setProt(getProt() + head.getProt());
+		}
+		if(chest != null) {
+			setProt	(getProt() + chest.getProt());
+		}
+		if(legs != null) {
+			setProt(getProt() + legs.getProt());
+		}
+		if(feet != null) {
+			setProt(getProt() + feet.getProt());
+		}
+	}
 }

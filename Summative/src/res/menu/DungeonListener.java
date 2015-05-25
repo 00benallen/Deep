@@ -24,7 +24,15 @@ public class DungeonListener implements KeyListener, MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+		if(dg.getInv().getBound().contains(e.getPoint())) {
+			for(int i = 0; i < Main.update.player.getItems(); i++) {
+				if(dg.getInv().getBounds(i).contains(e.getPoint())) {
+					Main.update.player.equip(dg.getInv().getItem(i));
+					dg.getInv().removeItem(i);
+					break;
+				}
+			}
+		}
 	}
 
 	@Override

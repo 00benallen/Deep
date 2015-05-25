@@ -60,7 +60,7 @@ public class Item {
 			setMod(rand.nextInt(3) + 1);
 			setModType(rand.nextInt(4));
 			setName("Ring");
-			setImage(ImageIO.read(this.getClass().getClassLoader().getResource("itemImage.png")));
+			setImage(ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/itemImage.png")));
 		}
 	}
 	
