@@ -58,30 +58,30 @@ public class Player {
 	
 	public int getStat(int type) {return stats[type];}
 	
-	public void equip(Item i) {
-		if(i.getType() == Item.HELMET) {
-			addItem(head);
-			head = i;
+	public void equip(int index) {
+		if(getItem(index).getType() == Item.HELMET) {
+			head = getItem(index);
+			removeItem(index);
 		}
-		if(i.getType() == Item.CHESTPLATE) {
-			addItem(chest);
-			chest = i;
+		else if(getItem(index).getType() == Item.CHESTPLATE) {
+			chest = getItem(index);
+			removeItem(index);
 		}
-		if(i.getType() == Item.LEGGINGS) {
-			addItem(legs);
-			legs = i;
+		else if(getItem(index).getType() == Item.LEGGINGS) {
+			legs = getItem(index);
+			removeItem(index);
 		}
-		if(i.getType() == Item.BOOTS) {
-			addItem(feet);
-			feet = i;
+		else if(getItem(index).getType() == Item.BOOTS) {
+			feet = getItem(index);
+			removeItem(index);
 		}
-		if(i.getType() == Item.RING) {
-			addItem(hand);
-			hand = i;
+		else if(getItem(index).getType() == Item.RING) {
+			hand = getItem(index);
+			removeItem(index);
 		}
-		if(i.getType() == Item.AMULET) {
-			addItem(neck);
-			neck = i;
+		else if(getItem(index).getType() == Item.AMULET) {
+			neck = getItem(index);
+			removeItem(index);
 		}
 		updateStats();
 	}

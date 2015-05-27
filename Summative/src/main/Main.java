@@ -25,6 +25,8 @@ public class Main {
 		log.log(Level.INFO, "Starting main menu");
 		appState = MAIN_MENU_STATE;
 		log.log(Level.INFO, "Starting graphics");
+		Loader l = new Loader();
+		l.start();
 		gMain = new GraphicsMain();
 		gMain.genMenu();
 	}

@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 
 import res.Dungeon;
 import res.Room;
+import main.Loader;
 import main.Main;
 
 public class DungeonGUI extends GUI {
@@ -25,22 +26,19 @@ public class DungeonGUI extends GUI {
 	}
 	
 	public void genGUI() throws IOException {
-		BufferedImage dungeonBackground = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/dungeonBackground.png"));
-		Pane pane = new Pane("roomPane", dungeonBackground);
-		BufferedImage roomImageI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/roomImage.png"));
-		ImageBox roomImage = new ImageBox((width/16)*2, (height/16)*2, roomImageI, "roomImage");
-		BufferedImage textBoxI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/textBox.png"));
-		TextBox textBox = new TextBox((width/16)*2, (height/2) + height/16,textBoxI, "textBox");
+		Pane pane = new Pane("roomPane", Loader.dungeonBackground);
+		ImageBox roomImage = new ImageBox((width/16)*2, (height/16)*2, Loader.roomImageI, "roomImage");
+		TextBox textBox = new TextBox((width/16)*2, (height/2) + height/16, Loader.textBoxI, "textBox");
 		Main.lck.readLock().lock();
 		Room curRoom = curDungeon.getCurRoom();
 		Main.lck.readLock().unlock();
 		textBox.setText(curRoom.getDesc() + "\n" + curRoom.getDecisionText());
-		BufferedImage toolBarI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/toolBar.png"));
-		ToolBar toolBar = new ToolBar(width/16, height - (height/16)*2, toolBarI, "toolBar");
+		ToolBar toolBar = new ToolBar(width/16, height - (height/16)*2, Loader.toolBarI, "toolBar");
 		pane.add(toolBar);
 		pane.add(roomImage);
 		pane.add(textBox);
 		addPane(pane);
+		inv = new InventoryBox((width/16)*2, (height/2) + height/16, Loader.invI, "invBox");
 	}
 	
 	public void updateUI() {
@@ -64,9 +62,8 @@ public class DungeonGUI extends GUI {
 	}
 	
 	public void openInventory() throws IOException {
-		BufferedImage invI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/inventoryBackground.png"));
-		inv = new InventoryBox((width/16)*2, (height/2) + height/16, invI, "invBox");
 		Main.lck.readLock().lock();
+		inv.clearInventory();
 		inv.addInventory(Main.update.player);
 		Main.lck.readLock().unlock();
 		textBuff = ((TextBox) this.getCurPane().getElement("textBox")).getText();
@@ -75,8 +72,7 @@ public class DungeonGUI extends GUI {
 	}
 
 	public void closeInventory() throws IOException {
-		BufferedImage textBoxI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/textBox.png"));
-		TextBox textBox = new TextBox((width/16)*2, (height/2) + height/16,textBoxI, "textBox");
+		TextBox textBox = new TextBox((width/16)*2, (height/2) + height/16, Loader.textBoxI, "textBox");
 		textBox.setText(textBuff);
 		this.getCurPane().remove("invBox");
 		this.getCurPane().add(textBox);

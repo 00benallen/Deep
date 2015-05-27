@@ -7,7 +7,12 @@ public class ButtonListener implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Start")) {
-			Main.startGame();
+			do {
+				if(Loader.loaded) {
+					Main.startGame();
+				}
+			} while(!Loader.loaded);
+				
 		}
 	}
 

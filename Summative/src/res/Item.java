@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
+import main.Loader;
 
 public class Item {
 	public static final int HELMET = 0, CHESTPLATE = 1, LEGGINGS = 2, BOOTS = 3, AMULET = 4, RING = 5;
@@ -21,28 +21,28 @@ public class Item {
 			setPrice(1);
 			setMod(0);
 			setName("Helmet");
-			setImage(ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/itemImage.png")));
+			setImage(Loader.itemImage);
 		}
 		else if(type == CHESTPLATE) {
 			setProt(2);
 			setPrice(3);
 			setMod(0);
 			setName("Chestplate");
-			setImage(ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/itemImage.png")));
+			setImage(Loader.itemImage);
 		}
 		else if(type == LEGGINGS) {
 			setProt(1);
 			setPrice(1);
 			setMod(0);
 			setName("Leggings");
-			setImage(ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/itemImage.png")));
+			setImage(Loader.itemImage);
 		}
 		else if(type == BOOTS) {
 			setProt(1);
 			setPrice(1);
 			setMod(0);
 			setName("Boots");
-			setImage(ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/itemImage.png")));
+			setImage(Loader.itemImage);
 		}
 		else if(type == AMULET) {
 			setProt(0);
@@ -51,7 +51,7 @@ public class Item {
 			setMod(rand.nextInt(3) + 2);
 			setModType(rand.nextInt(4));
 			setName("Amulet");
-			setImage(ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/itemImage.png")));
+			setImage(Loader.itemImage);
 		}
 		else if(type == RING) {
 			setProt(0);
@@ -60,7 +60,7 @@ public class Item {
 			setMod(rand.nextInt(3) + 1);
 			setModType(rand.nextInt(4));
 			setName("Ring");
-			setImage(ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/itemImage.png")));
+			setImage(Loader.itemImage);
 		}
 	}
 	
