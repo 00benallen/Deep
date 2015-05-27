@@ -2,6 +2,7 @@ package main;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
 
@@ -19,6 +20,7 @@ public class Loader implements Runnable {
 	
 	public void run() {
 		try {
+			Main.log.log(Level.INFO, "Loading resources!");
 			dungeonBackground = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/dungeonBackground.png"));
 			roomImageI  = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/roomImage.png"));
 			textBoxI = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/textBox.png"));
@@ -35,9 +37,6 @@ public class Loader implements Runnable {
 			dungeonMenuBackground = ImageIO.read(this.getClass().getClassLoader().getResource("shop/dungeonBackground.png"));
 			enterButtonI = ImageIO.read(this.getClass().getClassLoader().getResource("shop/dungeonEnterButton.png"));
 			itemImage = ImageIO.read(this.getClass().getClassLoader().getResource("dungeon/itemImage.png"));
-
-
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

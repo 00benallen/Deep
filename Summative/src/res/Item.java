@@ -3,8 +3,10 @@ package res;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
 
 import main.Loader;
+import main.Main;
 
 public class Item {
 	public static final int HELMET = 0, CHESTPLATE = 1, LEGGINGS = 2, BOOTS = 3, AMULET = 4, RING = 5;
@@ -15,6 +17,7 @@ public class Item {
 	private BufferedImage image;
 	
 	public Item(int type) throws IOException {
+		Main.log.log(Level.INFO, "Creating item!");
 		this.setType(type);
 		if(type == HELMET) {
 			setProt(1);

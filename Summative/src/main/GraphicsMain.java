@@ -40,10 +40,12 @@ public class GraphicsMain {
 	}
 	
 	public void addMouseListener(MouseListener l) {
+		Main.log.log(Level.INFO, "Adding mouse listener to window!");
 		window.addMouseListener(l);
 	}
 	
 	public void addKeyListener(KeyListener l) {
+		Main.log.log(Level.INFO, "Adding key listener to window!");
 		window.addKeyListener(l);
 	}
 	
@@ -61,6 +63,11 @@ public class GraphicsMain {
 		gamePane.setSize(GraphicsMain.WIDTH, GraphicsMain.HEIGHT);
 		gamePane.setLocation(0, 0);
 		return gamePane;
+	}
+	
+	public void startBattle() {
+		this.removeMouseListeners();
+		this.removeKeyListeners();
 	}
 	
 	/**
@@ -96,5 +103,17 @@ public class GraphicsMain {
 		mainPanel.add(startButton, c);
 		
 		return mainPanel;
+	}
+	
+	public void removeKeyListeners() {
+		for(int i = 0; i < window.getKeyListeners().length; i++) {
+			window.removeKeyListener(window.getKeyListeners()[i]);
+		}
+	}
+	
+	public void removeMouseListeners() {
+		for(int i = 0; i < window.getMouseListeners().length; i++) {
+			window.removeMouseListener(window.getMouseListeners()[i]);
+		}
 	}
 }

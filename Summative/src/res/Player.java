@@ -1,6 +1,9 @@
 package res;
 
 import java.util.LinkedList;
+import java.util.logging.Level;
+
+import main.Main;
 
 public class Player {
 	private LinkedList<Item> inv;
@@ -59,6 +62,7 @@ public class Player {
 	public int getStat(int type) {return stats[type];}
 	
 	public void equip(int index) {
+		Main.log.log(Level.INFO, "Equipping item!");
 		if(getItem(index).getType() == Item.HELMET) {
 			head = getItem(index);
 			removeItem(index);

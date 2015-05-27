@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.logging.Level;
 
 import main.Main;
 import res.Dungeon;
@@ -83,6 +84,9 @@ public class DungeonListener implements KeyListener, MouseListener{
 			if(openChest(0)) {
 				return;
 			}
+			if(startBattle(0)) {
+				return;
+			}
 			e.consume();
 		}
 		else if(e.getKeyChar() == '2') {
@@ -95,6 +99,9 @@ public class DungeonListener implements KeyListener, MouseListener{
 			if(openChest(1)) {
 				return;
 			}
+			if(startBattle(1)) {
+				return;
+			}
 			e.consume();
 		}
 		else if(e.getKeyChar() == '3') {
@@ -105,6 +112,9 @@ public class DungeonListener implements KeyListener, MouseListener{
 				return;
 			}
 			if(openChest(2)) {
+				return;
+			}
+			if(startBattle(2)) {
 				return;
 			}
 			e.consume();
@@ -177,6 +187,19 @@ public class DungeonListener implements KeyListener, MouseListener{
 			curDungeon.getCurRoom().removeDecision(key);
 			dg.updateUI();
 			textBox.setText(textBox.getText() + "/mYou have found a " + chestItem.getName());
+			Main.lck.writeLock().unlock();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean startBattle(int key) {
+		if(curDungeon.getCurRoom().getDecision(key) == 4) {
+			Main.lck.writeLock().lock();
+			Main.log.log(Level.INFO, "Starting battle!");
+			Main.startBattle();
 			Main.lck.writeLock().unlock();
 			return true;
 		}

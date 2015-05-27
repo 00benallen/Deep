@@ -79,6 +79,23 @@ public class Render implements Runnable {
 			else if(Main.gameState == Main.GAME_DUNGEON) {
 				dd.draw(Main.update.player.getCurRoom(), Main.update.curDungeon, g);
 			}
+			else if(Main.gameState == Main.GAME_BATTLE) {
+				drawBattle();
+			}
+			
+			if(Main.renderStateChange) {
+				if(Main.appState == Main.GAME_SHOP) {
+					dd = new DungeonDrawer();
+					Main.renderStateChange = false;
+				}
+				else if(Main.appState == Main.GAME_DUNGEON) {
+					sd = new ShopDrawer();
+					Main.renderStateChange = false;
+				}
+				else {
+					Main.renderStateChange = false;
+				}
+			}
 		}
 		dblBuffer.add(screen);
 		if(dblBuffer.size() == 2) {
@@ -90,6 +107,13 @@ public class Render implements Runnable {
 		Rectangle2D background = new Rectangle2D.Double(0, 0, GraphicsMain.WIDTH, GraphicsMain.HEIGHT);
 		g.setColor(Color.CYAN);
 		g.fill(background);
+	}
+	
+	private void drawBattle() {
+		drawPlayer();
+		drawEnemy();
+		drawHealth();
+		drawSpells();
 	}
 	
 	public Graphics2D getGraphics() {

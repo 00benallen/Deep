@@ -3,6 +3,9 @@ package res;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+
+import main.Main;
 
 public class Dungeon {
 	private Room startRoom;
@@ -15,7 +18,8 @@ public class Dungeon {
 		startRoom = new Room(Room.START, 0);
 		
 		r = new Random();
-		int l = r.nextInt(5) + 5 ;
+		int l = r.nextInt(5) + 5;
+		Main.log.log(Level.INFO, "Running dungeon generator");
 		genDungeonRooms(startRoom, l);
 		setCurRoomNum (0);
 	}

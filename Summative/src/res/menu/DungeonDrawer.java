@@ -18,6 +18,8 @@ public class DungeonDrawer {
 				Main.log.log(Level.INFO, "Generating dungeon GUI");
 				dungeonGUI = new DungeonGUI(0, 0, "dungeonGUI");
 				DungeonListener dl = new DungeonListener(dungeonGUI);
+				Main.gMain.removeKeyListeners();
+				Main.gMain.removeMouseListeners();
 				Main.gMain.addMouseListener(dl);
 				Main.gMain.addKeyListener(dl);
 			}

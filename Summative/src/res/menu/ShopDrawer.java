@@ -17,6 +17,7 @@ public class ShopDrawer {
 			Main.log.log(Level.INFO, "Generating shop GUI");
 			shopGUI = new ShopGUI(0, 0, "shopGUI");
 			ShopListener sl = new ShopListener(shopGUI);
+			Main.gMain.removeMouseListeners();
 			Main.gMain.addMouseListener(sl);
 		}
 	}

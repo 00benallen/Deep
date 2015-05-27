@@ -20,6 +20,8 @@ public class Update implements Runnable {
 	public Dungeon curDungeon;
 	public boolean dungeonGenerated;
 	public Player player;
+	private boolean battleTurn;
+	private final boolean PLAYER_TURN = true;
 	
 	/**
 	 * Starts update thread
@@ -71,6 +73,7 @@ public class Update implements Runnable {
 		}
 	}
 	
+	
 	/**
 	 * Executes all game actions
 	 */
@@ -79,6 +82,29 @@ public class Update implements Runnable {
 			if(Main.gameState == Main.GAME_DUNGEON) {
 				
 			}
+			else if(Main.gameState == Main.GAME_BATTLE) {
+				runBattle();
+			}
+			
+			
+			if(Main.updateStateChange) {
+				if(Main.gameState == Main.GAME_SHOP) {
+					generateDungeon();
+					Main.updateStateChange = false;
+				}
+			}
 		}
+	}
+	
+	private void runBattle() {
+		if(battleTurn == PLAYER_TURN) {
+			runPlayer();
+		}
+		else {
+			runEnemy();
+		}
+		
+		runSpell();
+		
 	}
 }
