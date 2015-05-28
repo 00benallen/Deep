@@ -22,18 +22,18 @@ public class InventoryBox extends Clickable {
 		this.width = inventoryBackground.getWidth();
 		this.height = inventoryBackground.getHeight();
 		bounds = new LinkedList<Rectangle2D>();
-		genImage(image);
+		genImage();
 	}
 	
 	public void addItem(Item i) {
 		inventory.add(i);
-		genImage(getImage());	
+		genImage();	
 	}
 	
 	public void removeItem(int index) {
 		inventory.remove(index);
 		bounds.remove(index);
-		genImage(getImage());
+		genImage();
 	}
 	
 	public Item getItem(int index) {return inventory.get(index);}
@@ -42,16 +42,16 @@ public class InventoryBox extends Clickable {
 		for(int i = 0; i < player.getItems(); i++) {
 			inventory.add(player.getItem(i));
 		}
-		genImage(getImage());
+		genImage();
 	}
 	
 	public void clearInventory() {
 		inventory.clear();
-		genImage(getImage());
+		genImage();
 	}
 	
-	public void genImage(BufferedImage image) {
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	public void genImage() {
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.drawImage(inventoryBackground, this.getX(), this.getY(), null);
 		
@@ -64,6 +64,7 @@ public class InventoryBox extends Clickable {
 				cnt = 2;
 			}
 		}
+		this.setImage(image);
 	}
 	
 	public Rectangle2D getBounds(int index) {

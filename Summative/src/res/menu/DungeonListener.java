@@ -12,13 +12,11 @@ import res.Dungeon;
 import res.Item;
 
 public class DungeonListener implements KeyListener, MouseListener{
-	private Dungeon curDungeon;
 	private DungeonGUI dg;
 	private boolean invOpen;
 	
 	public DungeonListener(DungeonGUI dg) {
 		Main.lck.readLock().lock();
-		curDungeon = Main.update.curDungeon;
 		Main.lck.readLock().unlock();
 		this.dg = dg;
 	}
@@ -141,9 +139,9 @@ public class DungeonListener implements KeyListener, MouseListener{
 	}
 	
 	public boolean right(int key) {
-		if(curDungeon.getCurRoom().getDecision(key) == 1) {
+		if(dg.curDungeon.getCurRoom().getDecision(key) == 1) {
 			Main.lck.writeLock().lock();
-			curDungeon.setCurRoomNum(curDungeon.getCurRoom().right.roomNum);
+			dg.curDungeon.setCurRoomNum(dg.curDungeon.getCurRoom().right.roomNum);
 			dg.updateUI();
 			Main.lck.writeLock().unlock();
 			return true;
@@ -155,9 +153,9 @@ public class DungeonListener implements KeyListener, MouseListener{
 	}
 	
 	public boolean left(int key) {
-		if(curDungeon.getCurRoom().getDecision(key) == 2) {
+		if(dg.curDungeon.getCurRoom().getDecision(key) == 2) {
 			Main.lck.writeLock().lock();
-			curDungeon.setCurRoomNum(curDungeon.getCurRoom().left.roomNum);
+			dg.curDungeon.setCurRoomNum(dg.curDungeon.getCurRoom().left.roomNum);
 			dg.updateUI();
 			Main.lck.writeLock().unlock();
 			return true;
@@ -169,11 +167,11 @@ public class DungeonListener implements KeyListener, MouseListener{
 	}
 	
 	public boolean openChest(int key) {
-		if(curDungeon.getCurRoom().getDecision(key) == 3) {
+		if(dg.curDungeon.getCurRoom().getDecision(key) == 3) {
 			Main.lck.writeLock().lock();
 			Item chestItem = null;
 			try {
-				chestItem = curDungeon.genChestItem();
+				chestItem = dg.curDungeon.genChestItem();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -184,7 +182,7 @@ public class DungeonListener implements KeyListener, MouseListener{
 					textBox = (TextBox) dg.getCurPane().getElement(i);
 				}
 			}
-			curDungeon.getCurRoom().removeDecision(key);
+			dg.curDungeon.getCurRoom().removeDecision(key);
 			dg.updateUI();
 			textBox.setText(textBox.getText() + "/mYou have found a " + chestItem.getName());
 			Main.lck.writeLock().unlock();
@@ -196,7 +194,7 @@ public class DungeonListener implements KeyListener, MouseListener{
 	}
 	
 	public boolean startBattle(int key) {
-		if(curDungeon.getCurRoom().getDecision(key) == 4) {
+		if(dg.curDungeon.getCurRoom().getDecision(key) == 4) {
 			Main.lck.writeLock().lock();
 			Main.log.log(Level.INFO, "Starting battle!");
 			Main.startBattle();

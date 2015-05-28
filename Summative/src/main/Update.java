@@ -83,7 +83,7 @@ public class Update implements Runnable {
 				
 			}
 			else if(Main.gameState == Main.GAME_BATTLE) {
-				runBattle();
+				//runBattle();
 			}
 			
 			
@@ -96,7 +96,7 @@ public class Update implements Runnable {
 		}
 	}
 	
-	private void runBattle() {
+	/*private void runBattle() {
 		if(battleTurn == PLAYER_TURN) {
 			runPlayer();
 		}
@@ -106,5 +106,5 @@ public class Update implements Runnable {
 		
 		runSpell();
 		
-	}
+	}*/
 }

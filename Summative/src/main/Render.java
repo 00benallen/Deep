@@ -110,10 +110,14 @@ public class Render implements Runnable {
 	}
 	
 	private void drawBattle() {
-		drawPlayer();
+		/*drawPlayer();
 		drawEnemy();
 		drawHealth();
-		drawSpells();
+		drawSpells();*/
+	}
+	
+	private void drawPlayer() {
+		
 	}
 	
 	public Graphics2D getGraphics() {

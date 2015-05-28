@@ -11,7 +11,7 @@ import main.Loader;
 import main.Main;
 
 public class DungeonGUI extends GUI {
-	private Dungeon curDungeon;
+	public Dungeon curDungeon;
 	private String textBuff;
 	private InventoryBox inv;
 
@@ -56,7 +56,7 @@ public class DungeonGUI extends GUI {
 		
 		Main.lck.readLock().lock();
 		curDungeon = Main.update.curDungeon;
-		Room curRoom = Main.update.curDungeon.getCurRoom();
+		Room curRoom = curDungeon.getCurRoom();
 		Main.lck.readLock().unlock();
 		textBox.setText(curRoom.getDesc() + "\n" + curRoom.getDecisionText());
 		
