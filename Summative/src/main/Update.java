@@ -1,9 +1,11 @@
 package main;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import res.Dungeon;
+import res.Enemy;
 import res.Player;
 
 /**
@@ -20,8 +22,7 @@ public class Update implements Runnable {
 	public Dungeon curDungeon;
 	public boolean dungeonGenerated;
 	public Player player;
-	private boolean battleTurn;
-	private final boolean PLAYER_TURN = true;
+	private Scoreboard sc;
 	
 	/**
 	 * Starts update thread
@@ -40,6 +41,11 @@ public class Update implements Runnable {
 		double nanoPerUpdate = 1000000000D/60D;
 		double delta = 0D;
 		player = new Player();
+		try {
+			sc = Scoreboard.load();
+		} catch (ClassNotFoundException | IOException e) {
+			sc = new Scoreboard();
+		}
 		if(Main.appState == Main.GAME_STATE) {
 			while(running) {
 				long now = System.nanoTime();
@@ -82,13 +88,10 @@ public class Update implements Runnable {
 			if(Main.gameState == Main.GAME_DUNGEON) {
 				
 			}
-			else if(Main.gameState == Main.GAME_BATTLE) {
-				//runBattle();
-			}
-			
 			
 			if(Main.updateStateChange) {
 				if(Main.gameState == Main.GAME_SHOP) {
+					dungeonGenerated = false;
 					generateDungeon();
 					Main.updateStateChange = false;
 				}
@@ -96,15 +99,23 @@ public class Update implements Runnable {
 		}
 	}
 	
-	/*private void runBattle() {
-		if(battleTurn == PLAYER_TURN) {
-			runPlayer();
+	public boolean runBattleSim() {
+		Enemy en = new Enemy();
+		
+		int score = 0;
+		while(en.getHealth() > 0 && player.getHealth() > 0) {
+			score += en.hit(player.getStats());
+			player.setMagic(player.getMagic() - 1);
+			player.hit(en.getDamage());
+			score -= en.getDamage();
+		}
+		sc.addScore(score);
+		
+		if(en.getHealth() <= 0) {
+			return true;
 		}
 		else {
-			runEnemy();
+			return false;
 		}
-		
-		runSpell();
-		
-	}*/
+	}
 }

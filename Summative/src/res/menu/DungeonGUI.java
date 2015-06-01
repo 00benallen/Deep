@@ -1,9 +1,5 @@
 package res.menu;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.logging.Level;
-
-import javax.imageio.ImageIO;
 
 import res.Dungeon;
 import res.Room;
@@ -43,13 +39,9 @@ public class DungeonGUI extends GUI {
 	}
 	
 	public void updateUI() {
-		ImageBox roomImage = null;
 		TextBox textBox = null;
 		for(int i = 0; i < getCurPane().getElements().size(); i++) {
-			if(getCurPane().getElement(i) instanceof ImageBox) {
-				roomImage = (ImageBox) getCurPane().getElement(i);
-			}
-			else if(getCurPane().getElement(i) instanceof TextBox) {
+			if(getCurPane().getElement(i) instanceof TextBox) {
 				textBox = (TextBox) getCurPane().getElement(i);
 			}
 		}

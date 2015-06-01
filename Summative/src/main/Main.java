@@ -9,7 +9,7 @@ public class Main {
 	
 	//app resources
 	public static final int GAME_STATE = 1, MAIN_MENU_STATE = 2;
-	public static final int GAME_SHOP = 0 , GAME_DUNGEON = 1, GAME_BATTLE = 2;
+	public static final int GAME_SHOP = 0 , GAME_DUNGEON = 1;
 	public static GraphicsMain gMain;
 	public static int appState = 0, gameState = 0;
 	public static final ReentrantReadWriteLock lck = new ReentrantReadWriteLock();
@@ -32,13 +32,19 @@ public class Main {
 		gMain.genMenu();
 	}
 	
-	public static void startGame() {
+	public static void startShop() {
 		log.log(Level.INFO, "Starting game");
-		appState = GAME_STATE;
+		if(appState == MAIN_MENU_STATE) {
+			appState = GAME_STATE;
+		}
 		gameState = GAME_SHOP;
-		update = new Update();
-		update.start();
-		gMain.startGame();
+		if(update == null) {
+			update = new Update();
+			if(!Update.running) {
+				update.start();
+				gMain.startGame();
+			}
+		}
 		renderStateChange = true;
 		updateStateChange = true;
 	}
@@ -48,13 +54,6 @@ public class Main {
 		appState = GAME_STATE;
 		gameState = GAME_DUNGEON;
 		Main.update.generateDungeon();
-		renderStateChange = true;
-		updateStateChange = true;
-	}
-	
-	public static void startBattle() {
-		gameState = GAME_BATTLE;
-		gMain.startBattle();
 		renderStateChange = true;
 		updateStateChange = true;
 	}

@@ -1,7 +1,6 @@
 package res.menu;
 
 import java.awt.Graphics2D;
-import java.awt.event.MouseListener;
 import java.util.LinkedList;
 
 import main.GraphicsMain;

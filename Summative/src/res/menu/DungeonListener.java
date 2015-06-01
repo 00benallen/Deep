@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 import main.Main;
-import res.Dungeon;
 import res.Item;
 
 public class DungeonListener implements KeyListener, MouseListener{
@@ -197,7 +196,20 @@ public class DungeonListener implements KeyListener, MouseListener{
 		if(dg.curDungeon.getCurRoom().getDecision(key) == 4) {
 			Main.lck.writeLock().lock();
 			Main.log.log(Level.INFO, "Starting battle!");
-			Main.startBattle();
+			if(!Main.update.runBattleSim()) {
+				Main.startShop();
+			}
+			else {
+				dg.curDungeon.getCurRoom().removeDecision(key);
+				TextBox textBox = null;
+				for(int i = 0; i < dg.getCurPane().getElements().size(); i++) {
+					if(dg.getCurPane().getElement(i) instanceof TextBox) {
+						textBox = (TextBox) dg.getCurPane().getElement(i);
+					}
+				}
+				textBox.setText(textBox.getText() + "/mYou have won!");
+				dg.updateUI();
+			}
 			Main.lck.writeLock().unlock();
 			return true;
 		}

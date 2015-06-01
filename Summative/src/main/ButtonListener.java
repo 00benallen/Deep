@@ -11,7 +11,7 @@ public class ButtonListener implements ActionListener {
 			do {
 				if(Loader.loaded) {
 					Main.log.log(Level.INFO, "Starting game!");
-					Main.startGame();
+					Main.startShop();
 				}
 			} while(!Loader.loaded);
 				
