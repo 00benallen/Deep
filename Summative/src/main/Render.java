@@ -68,24 +68,24 @@ public class Render implements Runnable {
 	 */
 	public void draw() { 
 		BufferedImage screen = new BufferedImage(GraphicsMain.WIDTH, GraphicsMain.HEIGHT, BufferedImage.TYPE_INT_RGB);
-		Graphics2D g = (Graphics2D) screen.getGraphics();
+		Graphics2D g = (Graphics2D) screen.getGraphics(); 
 		drawBackground(g);
 		if(Main.appState == Main.GAME_STATE) {
-			if(Main.gameState == Main.GAME_SHOP) {
+			if(Main.gameState == Main.GAME_SHOP) { //if game is in shop mode
 				sd.draw(g);
 			}
-			else if(Main.gameState == Main.GAME_DUNGEON) {
+			else if(Main.gameState == Main.GAME_DUNGEON) { //if game is in dungeon mode
 				dd.draw(Main.update.player.getCurRoom(), Main.update.curDungeon, g);
 			}
 			
-			if(Main.renderStateChange) {
+			if(Main.renderStateChange) { //resets graphical data when state is changed
 					dd = new DungeonDrawer();
 					sd = new ShopDrawer();
-					Main.renderStateChange = false;
+					Main.renderStateChange = false; //notifies itself that data has been reset
 			}
 		}
 		dblBuffer.add(screen);
-		if(dblBuffer.size() == 2) {
+		if(dblBuffer.size() == 2) { //turns buffered drawing into double buffered drawing
 			this.g.drawImage(dblBuffer.poll(), 0, 0, null);
 		}
 	}

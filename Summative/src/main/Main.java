@@ -48,7 +48,7 @@ public class Main {
 			appState = GAME_STATE;
 		}
 		gameState = GAME_SHOP;
-		if(update == null) {
+		if(update == null) { //only runs on startup of game
 			update = new Update();
 			if(!Update.running) {
 				update.start();
@@ -75,7 +75,7 @@ public class Main {
 	 */
 	public static void exit() {
 		log.log(Level.INFO, "Exiting game");
-		if(Update.running) {
+		if(Update.running) { //prevents null pointer if exit from menu
 			update.stop();
 		}
 		gMain.window.dispose();

@@ -12,12 +12,12 @@ import javax.imageio.ImageIO;
   */
 public class Loader implements Runnable {
 	private Thread loadThread;
-	public static boolean loaded;
+	public static boolean loaded; //lets render know it can start drawing
 	public static BufferedImage dungeonBackground, roomImageI, textBoxI, toolBarI, invI,
 		smithButtonI, innButtonI, mysticButtonI, dungeonButtonI, shopBackground, 
 		smithBackground, innBackground, mysticBackground, dungeonMenuBackground, enterButtonI, 
 		itemImage, helmetImage, amuletImage, chestplateImage, leggingsImage, ringImage, 
-		bootsImage;
+		bootsImage; //all images for game
 	
 	 /**
 	  * Starts loader thread

@@ -8,6 +8,11 @@ import java.util.logging.Level;
 import main.Loader;
 import main.Main;
 
+/**
+ * Class defining an item
+ * @author Ben Pinhorn
+ *
+ */
 public class Item {
 	public static final int HELMET = 0, CHESTPLATE = 1, LEGGINGS = 2, BOOTS = 3, AMULET = 4, RING = 5;
 	private String name;
@@ -16,6 +21,11 @@ public class Item {
 	private int type;
 	private BufferedImage image;
 	
+	/**
+	 * Default constructor for Item, stats are generated based on type of item, damage mods are randomized
+	 * @param type
+	 * @throws IOException
+	 */
 	public Item(int type) throws IOException {
 		Main.log.log(Level.INFO, "Creating item!");
 		this.setType(type);
@@ -67,59 +77,18 @@ public class Item {
 		}
 	}
 	
-	public int getProt() {
-		return prot;
-	}
-
-	public void setProt(int prot) {
-		this.prot = prot;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public int getMod() {
-		return mod;
-	}
-
-	public void setMod(int mod) {
-		this.mod = mod;
-	}
-
-	public int getModType() {
-		return modType;
-	}
-
-	public void setModType(int modType) {
-		this.modType = modType;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public BufferedImage getImage() {
-		return image;
-	}
-
-	public void setImage(BufferedImage image) {
-		this.image = image;
-	}
+	public int getProt() {return prot;}
+	public void setProt(int prot) {this.prot = prot;}
+	public int getPrice() {return price;}
+	public void setPrice(int price) {this.price = price;}
+	public int getMod() {return mod;}
+	public void setMod(int mod) {this.mod = mod;}
+	public int getModType() {return modType;}
+	public void setModType(int modType) {this.modType = modType;}
+	public int getType() {return type;}
+	public void setType(int type) {this.type = type;}
+	public String getName() {return name;}
+	public void setName(String name) {this.name = name;}
+	public BufferedImage getImage() {return image;}
+	public void setImage(BufferedImage image) {this.image = image;}
 }

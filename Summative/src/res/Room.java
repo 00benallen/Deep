@@ -5,6 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**
+ * Class defining a room in a dungeon, is a node in the dungeon tree
+ * @author Ben Pinhorn
+ *
+ */
 public class Room {
 	public Room left, right;
 	public int type, roomNum;
@@ -14,8 +19,13 @@ public class Room {
 	private int[] decisions;
 	public final static int START = 0, BOSS = 1, CHEST = 2, COMBAT = 3, EMPTY = 4;
 	
+	/**
+	 * Default constructor for a room
+	 * @param type
+	 * @param roomNum
+	 * @throws FileNotFoundException
+	 */
 	public Room(int type, int roomNum) throws FileNotFoundException {
-		
 		this.setType(type);
 		decisions = new int[6];
 		decisionsText = new String[6];
@@ -38,7 +48,7 @@ public class Room {
 		this.roomNum = roomNum;
 	}
 	
-	public void getInfo(String type) {
+	private void getInfo(String type) {
 		Scanner s = new Scanner(this.getClass().getClassLoader().getResourceAsStream("dungeon/RoomConfig"));
 		LinkedList<String> lines = new LinkedList<String>();
 		while(s.hasNextLine()) {
@@ -67,31 +77,18 @@ public class Room {
 		}
 	}
 
-	public String getDesc() {
-		return desc;
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
-	public BufferedImage getPicture() {
-		return picture;
-	}
-
-	public void setPicture(BufferedImage picture) {
-		this.picture = picture;
-	}
-	
+	public String getDesc() {return desc;}
+	public void setDesc(String desc) {this.desc = desc;}
+	public int getType() {return type;}
+	public void setType(int type) {this.type = type;}
+	public BufferedImage getPicture() {return picture;}
+	public void setPicture(BufferedImage picture) {this.picture = picture;}
 	public int getDecision(int index) {return decisions[index];}
+	
+	/**
+	 * Returns the text for the decisions the room has stored based on its type
+	 * @return text for room's decisions
+	 */
 	public String getDecisionText() {
 		String decisionText = "";
 		for(int i = 0; i < decisionsText.length; i++) {
@@ -103,6 +100,10 @@ public class Room {
 		return decisionText;
 	}
 	
+	/**
+	 * Removes a decisions from the room's list
+	 * @param index
+	 */
 	public void removeDecision(int index) {
 		decisions[index] = 0;
 		decisionsText[index] = "";

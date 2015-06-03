@@ -5,6 +5,11 @@ import java.util.logging.Level;
 
 import main.Main;
 
+/**
+ * Class defining a player
+ * @author Ben Pinhorn
+ *
+ */
 public class Player {
 	private LinkedList<Item> inv;
 	private Item head, chest, legs, feet, neck, hand;
@@ -12,6 +17,9 @@ public class Player {
 	private int health, magic, gold, curRoom, prot;
 	private int[] stats;
 	
+	/**
+	 * Default constructor for player
+	 */
 	public Player() {
 		inv = new LinkedList<Item>();
 		health = 100;
@@ -29,7 +37,16 @@ public class Player {
 	public int getMagic() {return magic;}
 	public int getGold() {return gold;}
 	public int getCurRoom() {return curRoom;}
+	public int getItems() {return items;}
+	public int getProt() {return prot;}
+	public int[] getStats() {return stats;}
+	private void setProt(int prot) {this.prot = prot;}
+	public void setMagic(int magic) {this.magic = magic;}
 	
+	/**
+	 * Adds an item to the players inventory, as long as it isn't full
+	 * @param newItem
+	 */
 	public void addItem(Item newItem) {
 		if(items < 16) {
 			inv.add(newItem);
@@ -37,6 +54,10 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * Deletes an item from the player's inventory
+	 * @param index
+	 */
 	public void removeItem(int index) {
 		Item rItem = inv.get(index);
 		setProt(getProt() - rItem.getProt());
@@ -45,18 +66,11 @@ public class Player {
 		items--;
 	}
 	
-	public int getItems() {return items;}
-
-	public int getProt() {
-		return prot;
-	}
-
-	private void setProt(int prot) {
-		this.prot = prot;
-	}
-	
-	public int[] getStats() {return stats;}
-	
+	/**
+	 * Equips an item, removing it from the inventory, updating the player's stats, returns false if the item cannot be equipped
+	 * @param index
+	 * @return equiped/not equipped
+	 */
 	public boolean equip(int index) {
 		Main.log.log(Level.INFO, "Equipping item!");
 		if(getItem(index).getType() == Item.HELMET) {
@@ -137,9 +151,11 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * Damages the player by the given amount
+	 * @param damage
+	 */
 	public void hit(int damage) {
 		setHealth(Math.max(getHealth() - Math.max(damage - prot, 0), 0));
 	}
-
-	public void setMagic(int magic) {this.magic = magic;}
 }

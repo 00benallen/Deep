@@ -20,7 +20,7 @@ public class GraphicsMain {
 	public JFrame window = new JFrame("Deep");
 	public final static int WIDTH = 1024;
 	public final static int HEIGHT = 768;
-	private int appState;
+	private int appState; //copy of Main's state
 	private ButtonListener bl;
 	
 	//Thread variables

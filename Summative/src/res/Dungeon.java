@@ -7,6 +7,11 @@ import java.util.logging.Level;
 
 import main.Main;
 
+/**
+ * Object defining a dungeon, contains both the beginning and end root (the dungeon is a tree of nodes), and algorithm for generation
+ * @author Ben Pinhorn
+ *
+ */
 public class Dungeon {
 	private Room startRoom;
 	private Room bossRoom;
@@ -14,6 +19,10 @@ public class Dungeon {
 	private int rooms;
 	Random r;
 	
+	/**
+	 * Constructor for dungeon object, generates the tree of rooms
+	 * @throws FileNotFoundException
+	 */
 	public Dungeon() throws FileNotFoundException {
 		startRoom = new Room(Room.START, 0);
 		
@@ -42,6 +51,11 @@ public class Dungeon {
 		}
 	}
 	
+	/**
+	 * Returns the room with specified room number
+	 * @param index
+	 * @return
+	 */
 	public Room getRoom(int index) {
 		return findRoom(startRoom, index);
 	}
@@ -77,18 +91,35 @@ public class Dungeon {
 		
 	}
 
+	/**
+	 * Returns the number of the current room
+	 * @return
+	 */
 	public int getCurRoomNum() {
 		return curRoom;
 	}
-
+	
+	/**
+	 * Sets the number of the current room
+	 * @param curRoom
+	 */
 	public void setCurRoomNum(int curRoom) {
 		this.curRoom = curRoom;
 	}
 	
+	/**
+	 * Returns the current room as an object
+	 * @return
+	 */
 	public Room getCurRoom() {
 		return getRoom(curRoom);
 	}
-
+	
+	/**
+	 * Generates the item from a chest
+	 * @return chest item
+	 * @throws IOException
+	 */
 	public Item genChestItem() throws IOException {
 		Random rand = new Random();
 		int itemType = rand.nextInt(6);
@@ -114,6 +145,5 @@ public class Dungeon {
 		}
 		
 		return genItem;
-		
 	}
 }

@@ -18,11 +18,15 @@ public class Update implements Runnable {
 	//Thread resources
 	public volatile ReentrantReadWriteLock lck = Main.lck;
 	private Thread updateThread;
+	
+	//app resources
 	public volatile static boolean running;
+	private Scoreboard sc;
+	
+	//game resources
 	public Dungeon curDungeon;
 	public boolean dungeonGenerated;
 	public Player player;
-	private Scoreboard sc;
 	
 	/**
 	 * Starts update thread
@@ -92,10 +96,6 @@ public class Update implements Runnable {
 	 */
 	private void update() {
 		if(Main.appState == Main.GAME_STATE) {
-			if(Main.gameState == Main.GAME_DUNGEON) {
-				
-			}
-			
 			if(Main.updateStateChange) {
 				if(Main.gameState == Main.GAME_SHOP) {
 					dungeonGenerated = false;
@@ -114,13 +114,14 @@ public class Update implements Runnable {
 		
 		Enemy en = new Enemy();
 		int score = 0;
-		while(en.getHealth() > 0 && player.getHealth() > 0) {
+		while(en.getHealth() > 0 && player.getHealth() > 0) { //alternates blows until loser
 			if(player.getMagic() > 0) {
 				score += en.hit(player.getStats());
 				player.setMagic(player.getMagic() - 1);
 			}
 			else {
-				sc.save();
+				sc.addScore(score);
+				sc.save(); //saves if player runs out of magic
 				return true;
 			}
 			player.hit(en.getDamage());
