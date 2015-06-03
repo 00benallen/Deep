@@ -5,10 +5,19 @@ import java.util.logging.Level;
 
 import res.Dungeon;
 import main.Main;
-
+ 
+/**
+  * Stores the objects for drawing the dungeon screen and UI, triggers the draw chain
+  * @author Ben Pinhorn
+  *
+  */
 public class DungeonDrawer {
 	DungeonGUI dungeonGUI;
 	
+	/**
+	 * Generates UI objects if required, triggers draw chain
+	 * @param g
+	 */
 	public void draw(int curRoom, Dungeon curDungeon, Graphics2D g) {
 		if(dungeonGUI != null) {
 			dungeonGUI.draw(g);

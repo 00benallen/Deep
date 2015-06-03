@@ -4,49 +4,78 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
+/**
+ * Stores Drawables, constitutes one complete window, calls the Drawbles' draw methods
+ * @author Ben Pinhorn
+ *
+ */
 public class Pane {
-	LinkedList<Clickable> buttons;
+	LinkedList<Drawable> drawables;
 	String name;
 	BufferedImage background;
 	
+	/**
+	 * Default constructor for Pane
+	 * @param name
+	 * @param background
+	 */
 	public Pane(String name, BufferedImage background) {
-		buttons = new LinkedList<Clickable>();
+		drawables = new LinkedList<Drawable>();
 		this.name = name;
 		this.background = background;
 	}
 	
-	public Pane(LinkedList<Clickable> buttons, String name, BufferedImage background) {
-		this.buttons = buttons;
+	/**
+	 * Constructor for pane with buttons already generated
+	 * @param buttons
+	 * @param name
+	 * @param background
+	 */
+	public Pane(LinkedList<Drawable> drawables, String name, BufferedImage background) {
+		this.drawables = drawables;
 		this.name = name;
 		this.background = background;
 	}
 	
-	public LinkedList<Clickable> getElements() {return buttons;}
-	public Clickable getElement(int index) {return buttons.get(index);}
+	public LinkedList<Drawable> getElements() {return drawables;}
+	public Drawable getElement(int index) {return drawables.get(index);}
 	public String getName() {return name;}
-	public void add(Clickable el) {buttons.add(el);}
+	public void add(Drawable el) {drawables.add(el);}
 	
-	
-	public Clickable getElement(String name) {
-		for(int i = 0; i < buttons.size(); i++) {
-			if(buttons.get(i).getName().equals(name)) {
-				return buttons.get(i);
+	/**
+	 * Finds and returns a drawable
+	 * @param name
+	 * @return
+	 */
+	public Drawable getElement(String name) {
+		for(int i = 0; i < drawables.size(); i++) {
+			if(drawables.get(i).getName().equals(name)) {
+				return drawables.get(i);
 			}
 		}
 		return null;
 	}
+	
+	/**
+	 * Finds and removes a drawable
+	 * @param name
+	 */
 	public void remove(String name) {
-		for(int i = 0; i < buttons.size(); i++) {
-			if(buttons.get(i).getName().equals(name)) {
-				buttons.remove(i);
+		for(int i = 0; i < drawables.size(); i++) {
+			if(drawables.get(i).getName().equals(name)) {
+				drawables.remove(i);
 			}
 		}
 	}
 	
+	/**
+	 * Calls draw on all drawables contained
+	 * @param g
+	 */
 	public void draw(Graphics2D g) {
 		g.drawImage(background, 0, 0, null);
-		for(int i = 0; i < buttons.size(); i++) {
-			Clickable b = buttons.get(i);
+		for(int i = 0; i < drawables.size(); i++) {
+			Drawable b = drawables.get(i);
 			b.draw(g);
 		}
 	}

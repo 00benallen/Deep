@@ -25,7 +25,7 @@ public class Dungeon {
 	}
 	
 	private void genDungeonRooms(Room root, int length) throws FileNotFoundException {
-		int gType = r.nextInt(4) + 2;
+		int gType = r.nextInt(3) + 2;
 		root.left = new Room(gType, (root.roomNum*2)+1);
 		root.right = new Room(gType, (root.roomNum*2)+2);
 		rooms += 2;

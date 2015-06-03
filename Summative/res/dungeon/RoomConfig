@@ -15,18 +15,9 @@ Go right
 Go left
 
 COMBAT
-A[n] [enemy] appears!
+An enemy appears!
 4
 Attack!
-1
-Avoid and go right
-2
-Avoid and go left
-
-ENCOUNTER
-A[n] [encounter] appears!
-5
-[Interact]
 1
 Avoid and go right
 2

@@ -5,10 +5,15 @@ import res.Dungeon;
 import res.Room;
 import main.Loader;
 import main.Main;
-
+ 
+/**
+  * GUI that generates and stores all of the UI objects for the dungeon screen
+  * @author Ben Pinhorn
+  *
+  */
 public class DungeonGUI extends GUI {
 	public Dungeon curDungeon;
-	private String textBuff;
+	private String textBuff; //buffers text in text box, so inventory box can be drawn over it
 	private InventoryBox inv;
 
 	public DungeonGUI(int x, int y, String name) {
@@ -22,7 +27,7 @@ public class DungeonGUI extends GUI {
 		this.setCurPane("roomPane");
 	}
 	
-	public void genGUI() throws IOException {
+	private void genGUI() throws IOException {
 		Pane pane = new Pane("roomPane", Loader.dungeonBackground);
 		ImageBox roomImage = new ImageBox((width/16)*2, (height/16)*2, Loader.roomImageI, "roomImage");
 		TextBox textBox = new TextBox((width/16)*2, (height/2) + height/16, Loader.textBoxI, "textBox");
@@ -38,6 +43,9 @@ public class DungeonGUI extends GUI {
 		inv = new InventoryBox((width/16)*2, (height/2) + height/16, Loader.invI, "invBox");
 	}
 	
+	/**
+	 * Updates the user interface, if text or image changes occur
+	 */
 	public void updateUI() {
 		TextBox textBox = null;
 		for(int i = 0; i < getCurPane().getElements().size(); i++) {
@@ -53,7 +61,11 @@ public class DungeonGUI extends GUI {
 		textBox.setText(curRoom.getDesc() + "\n" + curRoom.getDecisionText());
 		
 	}
-	
+	 
+	/**
+	  * Displays inventory box
+	  * @throws IOException
+	  */
 	public void openInventory() throws IOException {
 		Main.lck.readLock().lock();
 		inv.clearInventory();
@@ -63,13 +75,20 @@ public class DungeonGUI extends GUI {
 		this.getCurPane().remove("textBox");
 		this.getCurPane().add(inv);
 	}
-
+	
+	/**
+	 * Closes inventory box
+	 * @throws IOException
+	 */
 	public void closeInventory() throws IOException {
 		TextBox textBox = new TextBox((width/16)*2, (height/2) + height/16, Loader.textBoxI, "textBox");
 		textBox.setText(textBuff);
 		this.getCurPane().remove("invBox");
 		this.getCurPane().add(textBox);
 	}
-	
+	 /**
+	  * Returns the inventory box
+	  * @return inventory box
+	  */
 	public InventoryBox getInv() {return inv;}
 }

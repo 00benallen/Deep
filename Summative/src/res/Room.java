@@ -12,7 +12,7 @@ public class Room {
 	private String desc;
 	private String[] decisionsText;
 	private int[] decisions;
-	public final static int START = 0, BOSS = 1, CHEST = 2, COMBAT = 3, ENCOUNTER = 4, EMPTY = 5;
+	public final static int START = 0, BOSS = 1, CHEST = 2, COMBAT = 3, EMPTY = 4;
 	
 	public Room(int type, int roomNum) throws FileNotFoundException {
 		
@@ -25,9 +25,6 @@ public class Room {
 		
 		if(type == COMBAT) {
 			getInfo("COMBAT");
-		}
-		if(type == ENCOUNTER) {
-			getInfo("ENCOUNTER");
 		}
 		if(type == EMPTY) {
 			getInfo("EMPTY");

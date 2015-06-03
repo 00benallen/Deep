@@ -24,28 +24,28 @@ public class Item {
 			setPrice(1);
 			setMod(0);
 			setName("Helmet");
-			setImage(Loader.itemImage);
+			setImage(Loader.helmetImage);
 		}
 		else if(type == CHESTPLATE) {
 			setProt(2);
 			setPrice(3);
 			setMod(0);
 			setName("Chestplate");
-			setImage(Loader.itemImage);
+			setImage(Loader.chestplateImage);
 		}
 		else if(type == LEGGINGS) {
 			setProt(1);
 			setPrice(1);
 			setMod(0);
 			setName("Leggings");
-			setImage(Loader.itemImage);
+			setImage(Loader.leggingsImage);
 		}
 		else if(type == BOOTS) {
 			setProt(1);
 			setPrice(1);
 			setMod(0);
 			setName("Boots");
-			setImage(Loader.itemImage);
+			setImage(Loader.bootsImage);
 		}
 		else if(type == AMULET) {
 			setProt(0);
@@ -54,7 +54,7 @@ public class Item {
 			setMod(rand.nextInt(3) + 2);
 			setModType(rand.nextInt(4));
 			setName("Amulet");
-			setImage(Loader.itemImage);
+			setImage(Loader.amuletImage);
 		}
 		else if(type == RING) {
 			setProt(0);
@@ -63,7 +63,7 @@ public class Item {
 			setMod(rand.nextInt(3) + 1);
 			setModType(rand.nextInt(4));
 			setName("Ring");
-			setImage(Loader.itemImage);
+			setImage(Loader.ringImage);
 		}
 	}
 	

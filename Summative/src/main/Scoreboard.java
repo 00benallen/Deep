@@ -7,21 +7,34 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.LinkedList;
-
+ /**
+  * Object stores battle scores from each battle simulation, sorts them when new ones are added, serialized at game close
+  * @author Ben Pinhorn
+  *
+  */
 public class Scoreboard implements Serializable{
 	private static final long serialVersionUID = 4426303114495020688L;
 	private LinkedList<Integer> scores;
 	private static int eleme;
 	
+	/**
+	 * Default scoreboard constructor
+	 */
 	public Scoreboard() {
 		scores = new LinkedList<Integer>();
 	}
-	
+	 /**
+	  * Adds a score to the score list, sorts list
+	  * @param score
+	  */
 	public void addScore(int score) {
 		scores.add(score);
 		sort();
 	}
-	
+	 /**
+	  * Saves the scoreboard to the hard drive
+	  * @throws IOException
+	  */
 	public void save() throws IOException {
 		FileOutputStream fileOut = new FileOutputStream("res/scores.dp");
 		ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -29,7 +42,12 @@ public class Scoreboard implements Serializable{
 		out.close();
 		fileOut.close();
 	}
-	
+	 /**
+	  * Loads the scoreboard from the hard drive
+	  * @return newScoreboard
+	  * @throws IOException
+	  * @throws ClassNotFoundException
+	  */
 	public static Scoreboard load() throws IOException, ClassNotFoundException {
 		FileInputStream fileIn = new FileInputStream("res/scores.dp");
 		ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -45,7 +63,7 @@ public class Scoreboard implements Serializable{
 		quickSort(0, eleme-1);
 	}
 	
-	public void quickSort(int left, int right) {
+	private void quickSort(int left, int right) {
 		if(left < right) {
 			int p = partition(left, right);
 			quickSort(left, p-1);

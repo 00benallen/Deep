@@ -74,7 +74,9 @@ public class Update implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
+	 /**
+	  * Generates a new dungeon
+	  */
 	public void generateDungeon() {
 		try {
 			curDungeon = new Dungeon();
@@ -103,10 +105,14 @@ public class Update implements Runnable {
 			}
 		}
 	}
-	
+	 /**
+	  * Runs a battle simulation, to determine whether the player or enemy wins
+	  * @return battle won/lost
+	  * @throws IOException
+	  */
 	public boolean runBattleSim() throws IOException {
-		Enemy en = new Enemy();
 		
+		Enemy en = new Enemy();
 		int score = 0;
 		while(en.getHealth() > 0 && player.getHealth() > 0) {
 			if(player.getMagic() > 0) {

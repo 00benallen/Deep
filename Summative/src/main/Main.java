@@ -4,7 +4,11 @@ package main;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+ /**
+  * Main class for game, starts all threads, generates all game structure and threading objects, stores game and app states
+  * @author Ben Pinhorn
+  *
+  */
 public class Main {
 	
 	//app resources
@@ -12,15 +16,18 @@ public class Main {
 	public static final int GAME_SHOP = 0 , GAME_DUNGEON = 1;
 	public static GraphicsMain gMain;
 	public static int appState = 0, gameState = 0;
-	public static final ReentrantReadWriteLock lck = new ReentrantReadWriteLock();
+	public static final ReentrantReadWriteLock lck = new ReentrantReadWriteLock(); //used to maintain concurrency
 	public static boolean isNew = true;
 	public static Logger log;
-	public static boolean renderStateChange, updateStateChange;
 	
 	//thread resources
 	public static Update update;
+	public static boolean renderStateChange, updateStateChange; //tells update and render threads if there has been a state change
 	
-	
+	/**
+	 * Main method
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		log = Logger.getLogger("Deep.main");
 		log.log(Level.INFO, "Starting main menu");
@@ -32,6 +39,9 @@ public class Main {
 		gMain.genMenu();
 	}
 	
+	 /**
+	  * Changes game state to shop state, if first time, also starts game threads
+	  */
 	public static void startShop() {
 		log.log(Level.INFO, "Starting game");
 		if(appState == MAIN_MENU_STATE) {
@@ -48,7 +58,9 @@ public class Main {
 		renderStateChange = true;
 		updateStateChange = true;
 	}
-	
+	 /**
+	  * Changes game state to dungeon state
+	  */
 	public static void startDungeon() {
 		log.log(Level.INFO, "Starting dungeon");
 		appState = GAME_STATE;
@@ -59,11 +71,13 @@ public class Main {
 	}
 	
 	/**
-	 * Exits game safely by terminating the threads, stopping the music player, and disposing the window
+	 * Exits game safely by terminating the threads, and disposing the window
 	 */
 	public static void exit() {
 		log.log(Level.INFO, "Exiting game");
-		Update.running = false;
+		if(Update.running) {
+			update.stop();
+		}
 		gMain.window.dispose();
 	}
 }

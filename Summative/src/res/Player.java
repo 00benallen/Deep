@@ -57,51 +57,58 @@ public class Player {
 	
 	public int[] getStats() {return stats;}
 	
-	public void equip(int index) {
+	public boolean equip(int index) {
 		Main.log.log(Level.INFO, "Equipping item!");
 		if(getItem(index).getType() == Item.HELMET) {
-			if(head != null) {
-				addItem(head);
+			if(head == null) {
+				head = getItem(index);
+				removeItem(index);
+				return true;
 			}
-			head = getItem(index);
-			removeItem(index);
+			return false;
 		}
 		else if(getItem(index).getType() == Item.CHESTPLATE) {
-			if(chest != null) {
-				addItem(chest);
+			if(chest == null) {
+				chest = getItem(index);
+				removeItem(index);
+				return true;
 			}
-			chest = getItem(index);
-			removeItem(index);
+			return false;
 		}
 		else if(getItem(index).getType() == Item.LEGGINGS) {
-			if(legs != null) {
-				addItem(legs);
+			if(legs == null) {
+				legs = getItem(index);
+				removeItem(index);
+				return true;
 			}
-			legs = getItem(index);
-			removeItem(index);
+			return false;
 		}
 		else if(getItem(index).getType() == Item.BOOTS) {
-			if(feet != null) {
-				addItem(feet);
+			if(feet == null) {
+				feet = getItem(index);
+				removeItem(index);
+				return true;
 			}
-			feet = getItem(index);
-			removeItem(index);
+			return false;
 		}
 		else if(getItem(index).getType() == Item.RING) {
-			if(hand != null) {
-				addItem(hand);
+			if(hand == null) {
+				hand = getItem(index);
+				removeItem(index);
+				return true;
 			}
-			hand = getItem(index);
-			removeItem(index);
+			return false;
 		}
 		else if(getItem(index).getType() == Item.AMULET) {
-			if(neck != null) {
-				addItem(neck);
+			if(hand == null) {
+				hand = getItem(index);
+				removeItem(index);
+				return true;
 			}
-			neck = getItem(index);
-			removeItem(index);
+			return false;
 		}
 		updateStats();
+		return false;
 	}
 	
 	private void updateStats() {

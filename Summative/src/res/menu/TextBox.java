@@ -6,18 +6,32 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class TextBox extends Clickable {
+/**
+ * Drawable that holds text, text is changeable, not editable by user
+ * @author Ben Pinhorn
+ *
+ */
+public class TextBox extends Drawable {
 	String text = "";
-
+	
+	/**
+	 * Default constructor for TextBoxes
+	 * @param x
+	 * @param y
+	 * @param image
+	 * @param name
+	 */
 	public TextBox(int x, int y, BufferedImage image, String name) {
 		super(x, y, image, name);
 	}
 	
-	public void setText(String text) {
-		this.text = text;
-	}
+	public void setText(String text) {this.text = text;}
 	public String getText() {return text;}
 	
+	/**
+	 * Overriden draw method so text can be drawn
+	 */
+	@Override
 	public void draw(Graphics2D g) {
 		super.draw(g);
 		g.setColor(Color.black);

@@ -9,7 +9,11 @@ import java.util.logging.Level;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+/**
+ * Main graphics class, generates main menu, changes graphics states, adds key listeners to window, root of render thread
+ * @author Ben Pinhorn
+ *
+ */
 public class GraphicsMain {
 	
 	//Window variables
@@ -39,46 +43,6 @@ public class GraphicsMain {
 		bl = new ButtonListener();
 	}
 	
-	public void addMouseListener(MouseListener l) {
-		Main.log.log(Level.INFO, "Adding mouse listener to window!");
-		window.addMouseListener(l);
-	}
-	
-	public void addKeyListener(KeyListener l) {
-		Main.log.log(Level.INFO, "Adding key listener to window!");
-		window.addKeyListener(l);
-	}
-	
-	public void startGame() {
-		Main.log.log(Level.INFO, "Starting game graphics");
-		appState = Main.appState;
-		window.setContentPane(genGamePane());
-		window.revalidate();
-		render = new Render(window.getContentPane().getGraphics());
-		start();
-	}
-	
-	public JPanel genGamePane() {
-		JPanel gamePane = new JPanel();
-		gamePane.setSize(GraphicsMain.WIDTH, GraphicsMain.HEIGHT);
-		gamePane.setLocation(0, 0);
-		return gamePane;
-	}
-	
-	public void startBattle() {
-		this.removeMouseListeners();
-		this.removeKeyListeners();
-	}
-	
-	/**
-	 * Starts render thread 
-	 */
-	public synchronized void start() {
-		Main.log.log(Level.INFO, "Starting render thread");
-		renderThread = new Thread(render, "Render Thread");
-		renderThread.start();
-	}
-	
 	/**
 	 * Generates the Main Menu (and clears any other display)
 	 */
@@ -88,7 +52,7 @@ public class GraphicsMain {
 		}
 	}
 	
-	public JPanel genMainMenu() {
+	private JPanel genMainMenu() {
 		Main.log.log(Level.INFO, "Creating main menu");
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -106,15 +70,67 @@ public class GraphicsMain {
 		return mainPanel;
 	}
 	
+	 /**
+	  * Adds a mouse listener to the window
+	  * @param l
+	  */
+	public void addMouseListener(MouseListener l) {
+		Main.log.log(Level.INFO, "Adding mouse listener to window!");
+		window.addMouseListener(l);
+	}
+	
+	 /**
+	  * Adds a key listener to the window
+	  * @param l
+	  */
+	public void addKeyListener(KeyListener l) {
+		Main.log.log(Level.INFO, "Adding key listener to window!");
+		window.addKeyListener(l);
+	}
+	
+	/**
+	 * Removes all key listeners from window
+	 */
 	public void removeKeyListeners() {
 		for(int i = 0; i < window.getKeyListeners().length; i++) {
 			window.removeKeyListener(window.getKeyListeners()[i]);
 		}
 	}
 	
+	 /**
+	  * Removes all key listeners from window
+	  */
 	public void removeMouseListeners() {
 		for(int i = 0; i < window.getMouseListeners().length; i++) {
 			window.removeMouseListener(window.getMouseListeners()[i]);
 		}
+	}
+	
+	 /**
+	  * Starts the graphics of the game, starts the render thread, changes the content pane
+	  */
+	public void startGame() {
+		Main.log.log(Level.INFO, "Starting game graphics");
+		appState = Main.appState;
+		window.setContentPane(genGamePane());
+		window.revalidate();
+		render = new Render(window.getContentPane().getGraphics());
+		start();
+	}
+	
+	private JPanel genGamePane() {
+		JPanel gamePane = new JPanel();
+		gamePane.setSize(GraphicsMain.WIDTH, GraphicsMain.HEIGHT);
+		gamePane.setLocation(0, 0);
+		return gamePane;
+	}
+	
+	/**
+	 * Starts render thread 
+	 */
+	public synchronized void start() {
+		Main.log.log(Level.INFO, "Starting render thread");
+		renderThread = new Thread(render, "Render Thread");
+		renderThread.start();
 	}
 }

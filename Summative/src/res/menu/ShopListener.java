@@ -5,9 +5,18 @@ import java.awt.event.MouseListener;
 
 import main.Main;
 
+/**
+ * Listener for shop screen
+ * @author Ben Pinhorn
+ *
+ */
 public class ShopListener implements MouseListener {
 	ShopGUI sg;
 	
+	/**
+	 * Default constructor for ShopListener
+	 * @param sg
+	 */
 	public ShopListener(ShopGUI sg) {
 		this.sg = sg;
 	}
@@ -29,16 +38,7 @@ public class ShopListener implements MouseListener {
 	}
 	
 	private void scanTownButtons(int i) {
-		if(sg.getCurPane().getElement(i).getName().equals("smithButton")) {
-			sg.setCurPane("smithPane");
-		}
-		else if(sg.getCurPane().getElement(i).getName().equals("innButton")) {
-			sg.setCurPane("innPane");
-		}
-		else if(sg.getCurPane().getElement(i).getName().equals("mysticButton")) {
-			sg.setCurPane("mysticPane");
-		}
-		else if(sg.getCurPane().getElement(i).getName().equals("dungeonButton")) {
+		if(sg.getCurPane().getElement(i).getName().equals("dungeonButton")) {
 			sg.setCurPane("dungeonPane");
 		}
 	}

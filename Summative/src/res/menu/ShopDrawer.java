@@ -5,10 +5,18 @@ import java.util.logging.Level;
 
 import main.Main;
 
+/**
+ * Contains all shop UI objects, triggers shop draw chain
+ * @author Ben Pinhorn
+ *
+ */
 public class ShopDrawer {
 	ShopGUI shopGUI = null;
 	
-	
+	/**
+	 * Generates UI objects if required, triggers draw chain
+	 * @param g
+	 */
 	public void draw(Graphics2D g) {
 		if(shopGUI != null) {
 			shopGUI.draw(g);

@@ -9,12 +9,25 @@ import java.util.LinkedList;
 import res.Item;
 import res.Player;
 
-public class InventoryBox extends Clickable {
+/**
+ * Object that displays the inventory of the player
+ * @author Ben Pinhorn
+ *
+ */
+public class InventoryBox extends Drawable {
 	private LinkedList<Item> inventory;
 	private LinkedList<Rectangle2D> bounds;
 	private BufferedImage inventoryBackground;
 	private int width, height;
-
+	
+	/**
+	 * Default constructor for InventoryBoxes
+	 * @param x
+	 * @param y
+	 * @param image
+	 * @param name
+	 * @throws IOException
+	 */
 	public InventoryBox(int x, int y, BufferedImage image, String name) throws IOException {
 		super(x, y, image, name);
 		inventory = new LinkedList<Item>();
@@ -25,19 +38,32 @@ public class InventoryBox extends Clickable {
 		genImage();
 	}
 	
+	public Item getItem(int index) {return inventory.get(index);}
+	public Rectangle2D getBounds(int index) {return bounds.get(index);}
+	 
+	/**
+	 * Adds item to inventory box
+	 * @param i
+	 */
 	public void addItem(Item i) {
 		inventory.add(i);
 		genImage();	
 	}
 	
+	/**
+	 * Removes item from inventory box
+	 * @param index
+	 */
 	public void removeItem(int index) {
 		inventory.remove(index);
 		bounds.remove(index);
 		genImage();
 	}
 	
-	public Item getItem(int index) {return inventory.get(index);}
-	
+	/**
+	 * Adds whole inventory of player to inventory box
+	 * @param player
+	 */
 	public void addInventory(Player player) {
 		for(int i = 0; i < player.getItems(); i++) {
 			inventory.add(player.getItem(i));
@@ -45,12 +71,15 @@ public class InventoryBox extends Clickable {
 		genImage();
 	}
 	
+	/**
+	 * Clears the inventory box of items
+	 */
 	public void clearInventory() {
 		inventory.clear();
 		genImage();
 	}
 	
-	public void genImage() {
+	private void genImage() {
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.drawImage(inventoryBackground, this.getX(), this.getY(), null);
@@ -65,9 +94,5 @@ public class InventoryBox extends Clickable {
 			}
 		}
 		this.setImage(image);
-	}
-	
-	public Rectangle2D getBounds(int index) {
-		return bounds.get(index);
 	}
 }

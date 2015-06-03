@@ -13,7 +13,11 @@ import java.util.logging.Level;
 
 import res.menu.DungeonDrawer;
 import res.menu.ShopDrawer;
-
+ /**
+  * Render class for game, contains all draw objects, changes what to draw based on game state, runs on render thread
+  * @author Ben Pinhorn
+  *
+  */
 public class Render implements Runnable {
 	//graphics resources
 	private Graphics2D g;
@@ -43,8 +47,6 @@ public class Render implements Runnable {
 		long lastTime = System.nanoTime();
 		double nanoPerUpdate = 1000000000D/50D;
 		double delta = 0D;
-		
-			init();
 			while(Update.running) {
 				long now = System.nanoTime();
 				delta += (now - lastTime) / nanoPerUpdate;
@@ -61,12 +63,8 @@ public class Render implements Runnable {
 		}
 	}
 	
-	private void init() {
-		Main.log.log(Level.INFO, "Loading images");
-	}
-	
 	/**
-	 * Main command that calls functions to draw different aspects of the game
+	 * Main command that calls functions to draw different part of the game, double buffers frame
 	 */
 	public void draw() { 
 		BufferedImage screen = new BufferedImage(GraphicsMain.WIDTH, GraphicsMain.HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -96,11 +94,5 @@ public class Render implements Runnable {
 		Rectangle2D background = new Rectangle2D.Double(0, 0, GraphicsMain.WIDTH, GraphicsMain.HEIGHT);
 		g.setColor(Color.CYAN);
 		g.fill(background);
-	}
-	
-	public Graphics2D getGraphics() {
-		return g;
-	}
-	
-	
+	}	
 }
