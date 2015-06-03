@@ -94,6 +94,7 @@ public class GraphicsMain {
 		GridBagConstraints c = new GridBagConstraints();
 		
 		JButton startButton = new JButton("Start");
+		startButton.setVisible(true);
 		startButton.setActionCommand("Start");
 		startButton.addActionListener(bl);
 		

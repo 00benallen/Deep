@@ -196,19 +196,24 @@ public class DungeonListener implements KeyListener, MouseListener{
 		if(dg.curDungeon.getCurRoom().getDecision(key) == 4) {
 			Main.lck.writeLock().lock();
 			Main.log.log(Level.INFO, "Starting battle!");
-			if(!Main.update.runBattleSim()) {
-				Main.startShop();
-			}
-			else {
-				dg.curDungeon.getCurRoom().removeDecision(key);
-				TextBox textBox = null;
-				for(int i = 0; i < dg.getCurPane().getElements().size(); i++) {
-					if(dg.getCurPane().getElement(i) instanceof TextBox) {
-						textBox = (TextBox) dg.getCurPane().getElement(i);
-					}
+			try {
+				if(!Main.update.runBattleSim()) {
+					Main.startShop();
 				}
-				textBox.setText(textBox.getText() + "/mYou have won!");
-				dg.updateUI();
+				else {
+					dg.curDungeon.getCurRoom().removeDecision(key);
+					TextBox textBox = null;
+					for(int i = 0; i < dg.getCurPane().getElements().size(); i++) {
+						if(dg.getCurPane().getElement(i) instanceof TextBox) {
+							textBox = (TextBox) dg.getCurPane().getElement(i);
+						}
+					}
+					dg.updateUI();
+					textBox.setText(textBox.getText() + "/mYou have won!");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			Main.lck.writeLock().unlock();
 			return true;

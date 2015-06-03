@@ -7,9 +7,9 @@ public class Enemy {
 	
 	public Enemy() {
 		Random rand = new Random();
-		setHealth(20);
+		setHealth(10);
 		setDamage(rand.nextInt(3) + 1);
-		setProt(rand.nextInt(3) + 1);
+		setProt(rand.nextInt(2));
 	}
 	
 	public Enemy(int health, int damage, int prot) {
@@ -45,7 +45,7 @@ public class Enemy {
 	public int hit(int[] stats) {
 		Random rand = new Random();
 		int r = rand.nextInt(4);
-		setHealth(getHealth() - Math.max(stats[r] - prot, 0));
+		setHealth(Math.max(getHealth() - Math.max(stats[r] - prot, 0), 0));
 		return stats[r];
 	}
 

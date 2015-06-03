@@ -114,6 +114,7 @@ public class Player {
 		if(neck != null) {
 			stats[neck.getModType()] += neck.getMod();
 		}
+		
 		setProt(0);
 		if(head != null) {
 			setProt(getProt() + head.getProt());
@@ -130,7 +131,7 @@ public class Player {
 	}
 	
 	public void hit(int damage) {
-		setHealth(getHealth() - Math.max(0, (damage - prot)));
+		setHealth(Math.max(getHealth() - Math.max(damage - prot, 0), 0));
 	}
 
 	public void setMagic(int magic) {this.magic = magic;}

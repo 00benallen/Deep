@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 public class Scoreboard implements Serializable{
+	private static final long serialVersionUID = 4426303114495020688L;
 	private LinkedList<Integer> scores;
 	private static int eleme;
 	

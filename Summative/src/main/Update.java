@@ -68,6 +68,11 @@ public class Update implements Runnable {
 	 */
 	public synchronized void stop() {
 		running  = false;
+		try {
+			sc.save();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void generateDungeon() {
@@ -99,22 +104,30 @@ public class Update implements Runnable {
 		}
 	}
 	
-	public boolean runBattleSim() {
+	public boolean runBattleSim() throws IOException {
 		Enemy en = new Enemy();
 		
 		int score = 0;
 		while(en.getHealth() > 0 && player.getHealth() > 0) {
-			score += en.hit(player.getStats());
-			player.setMagic(player.getMagic() - 1);
+			if(player.getMagic() > 0) {
+				score += en.hit(player.getStats());
+				player.setMagic(player.getMagic() - 1);
+			}
+			else {
+				sc.save();
+				return true;
+			}
 			player.hit(en.getDamage());
 			score -= en.getDamage();
 		}
 		sc.addScore(score);
 		
 		if(en.getHealth() <= 0) {
+			sc.save();
 			return true;
 		}
 		else {
+			sc.save();
 			return false;
 		}
 	}
