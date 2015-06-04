@@ -30,7 +30,7 @@ public class Scoreboard implements Serializable{
 	  */
 	public void addScore(int score) {
 		scores.add(score);
-		sort();
+		sort(); 
 	}
 	
 	 /**

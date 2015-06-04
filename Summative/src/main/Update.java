@@ -114,6 +114,7 @@ public class Update implements Runnable {
 		
 		Enemy en = new Enemy();
 		int score = 0;
+
 		while(en.getHealth() > 0 && player.getHealth() > 0) { //alternates blows until loser
 			if(player.getMagic() > 0) {
 				score += en.hit(player.getStats());
@@ -128,6 +129,8 @@ public class Update implements Runnable {
 			score -= en.getDamage();
 		}
 		sc.addScore(score);
+		player.setHealth(100);
+		player.setMagic(100);
 		
 		if(en.getHealth() <= 0) {
 			sc.save();
